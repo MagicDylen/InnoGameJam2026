@@ -97,3 +97,44 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# =========================
+# WWISE - GENERATED FILES
+# =========================
+
+# Cache & Temp
+.cache/
+*.cache
+*.tmp
+*.log
+
+# User / machine specific
+*.user
+*.suo
+
+# =========================
+# WWISE SOUND BANKS
+# =========================
+
+GeneratedSoundBanks/
+SoundBanks/
+
+# =========================
+# WWISE PROJECT DATABASE
+# =========================
+
+*.wwu.bak
+
+# =========================
+# MAC / WINDOWS CRAP
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE / SYSTEM
+# =========================
+
+.vscode/
+.idea/
