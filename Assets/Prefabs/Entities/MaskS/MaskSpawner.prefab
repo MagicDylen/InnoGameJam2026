@@ -48,5 +48,7 @@ MonoBehaviour:
   - {fileID: 1041306998040080209, guid: a13250f64063da44bb8e53e3affd101b, type: 3}
   - {fileID: 4956488419055961397, guid: 0bba60e000ea559429c137068b6e6240, type: 3}
   - {fileID: 7763649579739535594, guid: 4d6d980de84aaad40a115c16f22a8217, type: 3}
+  - {fileID: 3858703791989906727, guid: 7aa91d71153f8ec44a26737df611f403, type: 3}
   SpawnRadius: 8
   SpawnInterval: 1
+  stickyDelay: 0

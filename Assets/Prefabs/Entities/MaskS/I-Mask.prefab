@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5301860639001212013}
   - component: {fileID: 8436777337304946046}
   - component: {fileID: 1807166132915683030}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: I-Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
