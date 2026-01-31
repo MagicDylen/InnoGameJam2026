@@ -60,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,7 +143,6 @@ GameObject:
   - component: {fileID: 2031278320427737147}
   - component: {fileID: 7174057287864082628}
   - component: {fileID: 5183567093745332570}
-  - component: {fileID: 5769182640842262438}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -300,18 +299,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   animator: {fileID: 7838669357100749086}
---- !u!114 &5769182640842262438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8944664320719757332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1c1e996fe86064784e1e8f78fff7b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GetDamageFromMasks
 --- !u!1 &8976751094467981144
 GameObject:
   m_ObjectHideFlags: 0
