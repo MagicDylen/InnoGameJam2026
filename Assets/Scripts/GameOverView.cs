@@ -6,8 +6,7 @@ public class GameOverView : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            // TODO: restart the game
-            Debug.Log("Restarting Game");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
     }
 }

@@ -19,6 +19,12 @@ public class ColorComboEffect : MonoBehaviour
     private bool triggered = false;
     public bool active = false;
 
+    public GameObject particlesExplosionPrefab;
+    public GameObject damageParticlesPrefab;
+    public GameObject littleParticlesPrefab;
+    public GameObject enemyKillParticlesPrefab;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -114,6 +120,8 @@ public class ColorComboEffect : MonoBehaviour
                             mask.transform.parent = null;
                         } 
                         Destroy(mask.gameObject);
+                        Instantiate(littleParticlesPrefab, gameObject.transform.position, Quaternion.identity);
+
                         break;
                     case MaskType.Sticky:
                         var rb = mask.gameObject.GetComponent<Rigidbody2D>();
@@ -126,7 +134,12 @@ public class ColorComboEffect : MonoBehaviour
                         }
                         break;
                 }
+
+                // Instantiate Explosion Particles
+                Instantiate(particlesExplosionPrefab, gameObject.transform.position, Quaternion.identity);
+
                 Destroy(gameObject);
+              
             }
         } 
     }
