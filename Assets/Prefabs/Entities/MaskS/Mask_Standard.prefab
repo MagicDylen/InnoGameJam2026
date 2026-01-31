@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3858703791989906727, guid: 7aa91d71153f8ec44a26737df611f403, type: 3}
       propertyPath: m_Name
-      value: Mask_Master
+      value: Mask_Standard
       objectReference: {fileID: 0}
     - target: {fileID: 4221114829402415294, guid: 7aa91d71153f8ec44a26737df611f403, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51,6 +51,10 @@ PrefabInstance:
     - target: {fileID: 4221114829402415294, guid: 7aa91d71153f8ec44a26737df611f403, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576692016337187882, guid: 7aa91d71153f8ec44a26737df611f403, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

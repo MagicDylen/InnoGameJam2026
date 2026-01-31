@@ -1,6 +1,4 @@
-using Mono.Cecil.Cil;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 public class ColorComboEffect : MonoBehaviour
 {
@@ -19,6 +17,7 @@ public class ColorComboEffect : MonoBehaviour
     public float ExplosionRadius = 3;
     public float ExplosionForce = 300;
     private bool triggered = false;
+    public bool active = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -60,7 +59,7 @@ public class ColorComboEffect : MonoBehaviour
         collision.gameObject.TryGetComponent<Rigidbody2D>(out var otherRb);
         gameObject.TryGetComponent<Rigidbody2D>(out var rb);
 
-        if (!otherCombo || otherCombo.enabled == false) return;
+        if (!otherCombo || otherCombo.active == false) return;
         
         if(otherCombo && otherCombo.AssignedType == AssignedType)
         {
@@ -78,7 +77,7 @@ public class ColorComboEffect : MonoBehaviour
         }
     }
 
-    private void TriggerCollisionEffect(Vector2 origin)
+    public void TriggerCollisionEffect(Vector2 origin)
     {
         if(triggered) return;
         if (AssignedType == MaskType.Explosive)
@@ -90,6 +89,14 @@ public class ColorComboEffect : MonoBehaviour
             var inRange = Physics2D.OverlapCircleAll(pos, ExplosionRadius, layerMask);
             foreach (var mask in inRange)
             {
+                // check if the player was in range
+                mask.gameObject.TryGetComponent<PlayerStats>(out var playerStats);
+                gameObject.TryGetComponent<EnemyStats>(out var enemyStats);
+                if(playerStats && enemyStats)
+                {
+                    playerStats.DecreaseHealth(enemyStats.Damage);
+                }
+
                 mask.gameObject.TryGetComponent<ColorComboEffect>(out var otherCombo);
                 if(!otherCombo)
                 {

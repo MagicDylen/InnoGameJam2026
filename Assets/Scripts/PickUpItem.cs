@@ -32,7 +32,7 @@ public class PickUpItem : MonoBehaviour
             case Type.Undefined:
                 break;
             case Type.Health:
-                stats.IncreaseHealth();
+                stats.IncreaseHealth(stats.HeartValue);
                 break;
             case Type.Damage:
                 stats.IncreaseDamage();
