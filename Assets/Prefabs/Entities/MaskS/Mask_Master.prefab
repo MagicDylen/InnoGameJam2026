@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 8755185324355926872}
   - component: {fileID: 8733489224607065701}
   - component: {fileID: 5576692016337187882}
+  - component: {fileID: 4886331918528389595}
+  - component: {fileID: 7210931677473721185}
+  - component: {fileID: 687998902845955315}
   m_Layer: 6
   m_Name: Mask_Master
   m_TagString: Ground
@@ -50,7 +53,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -105,7 +108,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3858703791989906727}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eeac124fa81bc844bab41d922b69106, type: 3}
   m_Name: 
@@ -113,6 +116,45 @@ MonoBehaviour:
   AssignedType: 3
   ExplosionRadius: 3
   ExplosionForce: 300
+--- !u!114 &4886331918528389595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3858703791989906727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbb35500cba332344abaef0adca2ac38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
+  Healthpoints: 10
+  Damage: 10
+  Speed: 2
+--- !u!114 &7210931677473721185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3858703791989906727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cab638b606150394992e77f55cf7fb76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TransformDeadEnemyToMask
+--- !u!114 &687998902845955315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3858703791989906727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2be0cc6690ff4b94a7621fef93c8025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
 --- !u!1 &9101451013018322323
 GameObject:
   m_ObjectHideFlags: 0

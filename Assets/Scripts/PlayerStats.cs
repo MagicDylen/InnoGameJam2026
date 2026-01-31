@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+
+    [SerializeField] float PlayerDamage = 10f;
     [SerializeField] float SpeedMultiplier = 1;
     [SerializeField] float DamageMultiplier = 1;
     [SerializeField] public float TotalHealth = 100;
@@ -11,7 +13,10 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] float DamagePickUpAdd = 0.2f;
     [SerializeField] float SpeeedPickUpAdd = 0.1f;
     [SerializeField] public bool IsDead = false;
-
+    [SerializeField] private float damageCooldown = 1f;
+    
+    private float lastDamageTime = -Mathf.Infinity;
+        
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
@@ -26,9 +31,13 @@ public class PlayerStats : MonoBehaviour
             Debug.Log("Health: " + TotalHealth);
         }
     }
+    
 
-    private float lastDamageTime = -Mathf.Infinity;
-    [SerializeField] private float damageCooldown = 1f;
+    public float GetDamage()
+    {
+        return PlayerDamage * DamageMultiplier;
+    }
+
 
     public void IncreaseHealth()
     {

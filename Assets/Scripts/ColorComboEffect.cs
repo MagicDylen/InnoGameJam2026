@@ -15,7 +15,7 @@ public class ColorComboEffect : MonoBehaviour
     }
 
     Renderer ren;
-    public MaskType AssignedType;
+    public MaskType AssignedType = MaskType.Inactive;
     public float ExplosionRadius = 3;
     public float ExplosionForce = 300;
     private bool triggered = false;
@@ -23,9 +23,8 @@ public class ColorComboEffect : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ren = gameObject.GetComponentInChildren<Renderer>();
-        AsssignRandomComboColor();
-        
+        ren = gameObject.GetComponent<Renderer>();
+        if(AssignedType == MaskType.Inactive) AsssignRandomComboColor();
     }
 
     void AsssignRandomComboColor()
@@ -45,7 +44,7 @@ public class ColorComboEffect : MonoBehaviour
             MaskType.Inactive => Color.black,
             _ => Color.gray,
         };
-
+        if(!ren) return;
         ren.material.SetColor("_Color", randColor);
     }
 
