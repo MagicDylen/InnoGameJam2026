@@ -754,8 +754,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8185972883527235732, guid: f3cded803640a9b40a690c6b741b5083, type: 3}
       propertyPath: stickyDelay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185972883527235732, guid: f3cded803640a9b40a690c6b741b5083, type: 3}
+      propertyPath: MaskShapes.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8185972883527235732, guid: f3cded803640a9b40a690c6b741b5083, type: 3}
+      propertyPath: 'MaskShapes.Array.data[2]'
+      value: 
+      objectReference: {fileID: 3858703791989906727, guid: 7aa91d71153f8ec44a26737df611f403, type: 3}
     - target: {fileID: 8314858290146209358, guid: f3cded803640a9b40a690c6b741b5083, type: 3}
       propertyPath: m_Name
       value: MaskSpawner

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BecomeStaticAfterSeconds : MonoBehaviour
 {
-    [SerializeField] private float secondsBeforeStatic = 2f;
+    [SerializeField] public float SecondsBeforeStatic = 2f;
 
     private Rigidbody2D rb;
 
@@ -21,7 +21,7 @@ public class BecomeStaticAfterSeconds : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Invoke(nameof(MakeStatic), secondsBeforeStatic);
+            Invoke(nameof(MakeStatic), SecondsBeforeStatic);
         }
     }
 
