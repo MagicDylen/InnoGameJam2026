@@ -5,11 +5,12 @@ public class PlayerStats : MonoBehaviour
 {
     [SerializeField] float SpeedMultiplier = 1;
     [SerializeField] float DamageMultiplier = 1;
-    [SerializeField] float TotalHealth = 100;
+    [SerializeField] public float TotalHealth = 100;
     [SerializeField] float MaxHealth = 100;
-    [SerializeField] float HealthPickUpAdd = 20;
+    [SerializeField] float HeartValue = 20;
     [SerializeField] float DamagePickUpAdd = 0.2f;
     [SerializeField] float SpeeedPickUpAdd = 0.1f;
+    [SerializeField] public bool IsDead = false;
 
 
 
@@ -17,7 +18,17 @@ public class PlayerStats : MonoBehaviour
 
     public void IncreaseHealth()
     {
-        TotalHealth = math.min(MaxHealth, TotalHealth +  HealthPickUpAdd);
+        TotalHealth = math.min(MaxHealth, TotalHealth +  HeartValue);
+    }
+
+    public void DecreaseHealth()
+    {
+        TotalHealth -= HeartValue;
+        if (TotalHealth <= 0)
+        {
+            IsDead = true;
+            Debug.Log("Player Died");
+        }
     }
 
     public void IncreaseDamage()

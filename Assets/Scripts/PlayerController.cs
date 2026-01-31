@@ -74,6 +74,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (isDead())
+        {
+            return;
+        }
+        
         moveInput = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetButtonDown("Jump"))
@@ -96,6 +101,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isDead())
+        {
+            return; 
+        }
+        
         // 1) Read ground via rays (stable on moving rigidbodies)
         UpdateGroundInfo();
 
@@ -223,6 +233,19 @@ public class PlayerController : MonoBehaviour
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(groundHit.point, 0.05f);
+        }
+    }
+
+    bool isDead()
+    {
+        try
+        {
+            return gameObject.GetComponent<PlayerStats>().IsDead;
+        }
+        catch
+        {
+            // PlayerStats component doesn't exist, assume not dead
+            return false;
         }
     }
 }
