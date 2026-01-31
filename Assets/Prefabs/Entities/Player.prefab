@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2133316490961544827}
   - component: {fileID: 1541553204042242021}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 2031278320427737147}
   - component: {fileID: 7174057287864082628}
   - component: {fileID: 5183567093745332570}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -226,6 +226,7 @@ MonoBehaviour:
   maxUpwardForce: 250
   stickDownForce: 15
   disableSpringWhileRising: 1
+  facingRight: 1
 --- !u!114 &7174057287864082628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,10 +243,10 @@ MonoBehaviour:
   DamageMultiplier: 1
   TotalHealth: 100
   MaxHealth: 100
-  HealthPickUpAdd: 20
+  HeartValue: 20
   DamagePickUpAdd: 0.2
   SpeeedPickUpAdd: 0.1
-  facingRight: 1
+  IsDead: 0
 --- !u!114 &5183567093745332570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +268,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1052555374638149888}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,6 +341,14 @@ PrefabInstance:
     - target: {fileID: 2508524115053976400, guid: 63a8313f22dab5d40b9b7c6e868e63d3, type: 3}
       propertyPath: m_Name
       value: SpawnerAtPosition
+      objectReference: {fileID: 0}
+    - target: {fileID: 2508524115053976400, guid: 63a8313f22dab5d40b9b7c6e868e63d3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706859709729508819, guid: 63a8313f22dab5d40b9b7c6e868e63d3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
