@@ -251,7 +251,7 @@ MonoBehaviour:
   lowJumpMultiplier: 2
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   playerVisuals: {fileID: 2133316490961544827}
   flipDeadzone: 0.01
   springOrigin: {fileID: 1052555374638149888}

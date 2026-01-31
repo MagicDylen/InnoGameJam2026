@@ -91,7 +91,7 @@ public class ColorComboEffect : MonoBehaviour
         {
             triggered = true;
             Vector2 pos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
-            var layerMask = LayerMask.GetMask("Ground");
+            var layerMask = LayerMask.GetMask("Mask");
 
             var inRange = Physics2D.OverlapCircleAll(pos, ExplosionRadius, layerMask);
             foreach (var mask in inRange)

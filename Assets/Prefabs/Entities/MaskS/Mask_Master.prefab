@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4886331918528389595}
   - component: {fileID: 7210931677473721185}
   - component: {fileID: 687998902845955315}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Mask_Master
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7995270543477407559}
   - component: {fileID: 6598038766243825840}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
