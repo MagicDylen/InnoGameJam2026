@@ -59,13 +59,18 @@ public class ColorComboEffect : MonoBehaviour
         Rigidbody2D rb;
         gameObject.TryGetComponent<Rigidbody2D>(out rb);
         
-        if(otherCombo && otherCombo.AssignedColor == AssignedColor) //&& rb.bodyType == RigidbodyType2D.Static && otherRb.bodyType == RigidbodyType2D.Static)
+        if(otherCombo && otherCombo.AssignedColor == AssignedColor)
         {
-            Debug.Log("crashed with another!");
+            TriggerCollisionEffect();
             AssignedColor = ComboColor.Inactive;
             SetRenderColor();
             otherCombo.AssignedColor = ComboColor.Inactive;
             otherCombo.SetRenderColor();
         }
+    }
+
+    private void TriggerCollisionEffect()
+    {
+        // here be code depending on ComboColor
     }
 }

@@ -1,7 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class PlayerSats : MonoBehaviour
+public class PlayerStats : MonoBehaviour
 {
     [SerializeField] float SpeedMultiplier = 1;
     [SerializeField] float DamageMultiplier = 1;
@@ -22,7 +22,7 @@ public class PlayerSats : MonoBehaviour
 
     public void IncreaseDamage()
     {
-        DamageMultiplier = DamagePickUpAdd;
+        DamageMultiplier += DamagePickUpAdd;
     }
 
     public void IncreaseSpeed()
