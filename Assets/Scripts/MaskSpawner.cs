@@ -20,9 +20,10 @@ public class MaskSpawner : MonoBehaviour
             int index = (int)(Random.value * MaskShapes.Length);
 
             var mask = Instantiate(MaskShapes[index], spawnPos, Quaternion.Euler(0, 0, Random.value * 360));
-            mask.AddComponent<Sticky>();
-            var stickyComponent = mask.GetComponent<Sticky>();
-            stickyComponent.Delay = stickyDelay;
+            mask.AddComponent<ColorComboEffect>();
+            mask.AddComponent<BecomeStaticAfterSeconds>();
+            var stickyComponent = mask.GetComponent<BecomeStaticAfterSeconds>();
+            stickyComponent.SecondsBeforeStatic = stickyDelay;
         }
     }
 
