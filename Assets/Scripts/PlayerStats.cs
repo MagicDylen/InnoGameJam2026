@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+
+    [SerializeField] float PlayerDamage = 10f;
     [SerializeField] float SpeedMultiplier = 1;
     [SerializeField] float DamageMultiplier = 1;
     [SerializeField] public float TotalHealth = 100;
@@ -13,7 +15,10 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] public bool IsDead = false;
 
 
-
+    public float GetDamage()
+    {
+        return PlayerDamage * DamageMultiplier;
+    }
 
 
     public void IncreaseHealth()

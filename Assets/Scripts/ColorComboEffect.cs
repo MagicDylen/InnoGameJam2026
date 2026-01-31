@@ -15,7 +15,7 @@ public class ColorComboEffect : MonoBehaviour
     }
 
     Renderer ren;
-    public MaskType AssignedType;
+    public MaskType AssignedType = MaskType.Inactive;
     public float ExplosionRadius = 3;
     public float ExplosionForce = 300;
     private bool triggered = false;
@@ -24,8 +24,7 @@ public class ColorComboEffect : MonoBehaviour
     void Start()
     {
         ren = gameObject.GetComponent<Renderer>();
-        AsssignRandomComboColor();
-        
+        if(AssignedType == MaskType.Inactive) AsssignRandomComboColor();
     }
 
     void AsssignRandomComboColor()
