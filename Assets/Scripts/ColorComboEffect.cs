@@ -44,7 +44,7 @@ public class ColorComboEffect : MonoBehaviour
             MaskType.Inactive => Color.black,
             _ => Color.gray,
         };
-
+        if(!ren) return;
         ren.material.SetColor("_Color", randColor);
     }
 
