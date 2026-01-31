@@ -1,5 +1,6 @@
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -60,6 +61,7 @@ public class PlayerStats : MonoBehaviour
         {
             IsDead = true;
             ObjectHolder objHolder = FindAnyObjectByType<ObjectHolder>();
+            SceneManager.LoadScene("GameOverScene", LoadSceneMode.Additive);
             objHolder?.endGame();
         }
     }

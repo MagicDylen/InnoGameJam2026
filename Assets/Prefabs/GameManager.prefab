@@ -50,9 +50,9 @@ MonoBehaviour:
   heightBuffer: 20
   horizontalRange: 10
   cooldowns:
-    level1Cooldown: 1.2
-    level2Cooldown: 0.9
-    level3Cooldown: 0.7
+    level1Cooldown: 0.5
+    level2Cooldown: 0.3
+    level3Cooldown: 0.1
   typeConfigs:
   - type: 0
     weight: 50

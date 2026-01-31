@@ -56,12 +56,11 @@ public class ColorComboEffect : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        ColorComboEffect otherCombo;
-        collision.gameObject.TryGetComponent<ColorComboEffect>(out otherCombo);
-        Rigidbody2D otherRb;
-        collision.gameObject.TryGetComponent<Rigidbody2D>(out otherRb);
-        Rigidbody2D rb;
-        gameObject.TryGetComponent<Rigidbody2D>(out rb);
+        collision.gameObject.TryGetComponent<ColorComboEffect>(out var otherCombo);
+        collision.gameObject.TryGetComponent<Rigidbody2D>(out var otherRb);
+        gameObject.TryGetComponent<Rigidbody2D>(out var rb);
+
+        if (!otherCombo || otherCombo.enabled == false) return;
         
         if(otherCombo && otherCombo.AssignedType == AssignedType)
         {
@@ -69,20 +68,26 @@ public class ColorComboEffect : MonoBehaviour
             SetRenderColor();
             otherCombo.SetRenderColor();
         }
+        else if(AssignedType == MaskType.Sticky && (otherCombo.AssignedType == MaskType.Standard || otherCombo.AssignedType == MaskType.Sticky))
+        {
+            if(collision.gameObject.transform.parent == null)
+            {
+                collision.gameObject.transform.parent = gameObject.transform;
+                otherRb.bodyType = RigidbodyType2D.Kinematic;
+            }
+        }
     }
 
     private void TriggerCollisionEffect(Vector2 origin)
     {
         if(triggered) return;
-        triggered = true;
-
         if (AssignedType == MaskType.Explosive)
         {
+            triggered = true;
             Vector2 pos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
             var layerMask = LayerMask.GetMask("Ground");
 
             var inRange = Physics2D.OverlapCircleAll(pos, ExplosionRadius, layerMask);
-            Debug.Log($"With {inRange.Length} Boom");
             foreach (var mask in inRange)
             {
                 mask.gameObject.TryGetComponent<ColorComboEffect>(out var otherCombo);
@@ -90,25 +95,32 @@ public class ColorComboEffect : MonoBehaviour
                 {
                     continue;
                 }
-                otherCombo.TriggerCollisionEffect(pos);
+                switch (otherCombo.AssignedType)
+                {
+                    case MaskType.Explosive:
+                        otherCombo.TriggerCollisionEffect(pos);
+                        break;
+                    case MaskType.Standard:
+                        // unparent first
+                        if(mask.transform.parent != null)
+                        {
+                            mask.transform.parent = null;
+                        } 
+                        Destroy(mask.gameObject);
+                        break;
+                    case MaskType.Sticky:
+                        var rb = mask.gameObject.GetComponent<Rigidbody2D>();
+                        rb.bodyType = RigidbodyType2D.Dynamic;
+                        rb.AddForce(((Vector2)mask.gameObject.transform.position - origin) * ExplosionForce, ForceMode2D.Impulse);
+                        mask.gameObject.TryGetComponent<BecomeStaticAfterSeconds>(out var staticComponent);
+                        if(staticComponent)
+                        {
+                            staticComponent.BecomeStaticWithDelay(10f);
+                        }
+                        break;
+                }
                 Destroy(gameObject);
             }
         } 
-        else if (AssignedType == MaskType.Standard)
-        {
-            Destroy(gameObject);
-        }
-        
-        else // all other types
-        {
-            var rb = gameObject.GetComponent<Rigidbody2D>();
-            rb.bodyType = RigidbodyType2D.Dynamic;
-            rb.AddForce(((Vector2)gameObject.transform.position - origin) * ExplosionForce, ForceMode2D.Impulse);
-            gameObject.TryGetComponent<BecomeStaticAfterSeconds>(out var staticComponent);
-            if(staticComponent)
-            {
-                staticComponent.BecomeStaticWithDelay(10f);
-            }
-        }
     }
 }

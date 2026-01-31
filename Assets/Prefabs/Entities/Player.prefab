@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2133316490961544827}
   - component: {fileID: 1541553204042242021}
   - component: {fileID: 7838669357100749086}
+  - component: {fileID: 8989249576405775529}
   m_Layer: 7
   m_Name: PlayerVisuals
   m_TagString: Untagged
@@ -114,6 +115,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8989249576405775529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6250671499600275971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9dfbd4c1bdaf224594a759334405e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  controller: {fileID: 2031278320427737147}
+  fallThreshold: -0.1
 --- !u!1 &8944664320719757332
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,6 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181177e8ae2a0874384d3dc475e28d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  PlayerDamage: 10
   SpeedMultiplier: 1
   DamageMultiplier: 1
   TotalHealth: 100
@@ -282,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b1e67d7976d4e35a59b1b2f97df889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  animator: {fileID: 7838669357100749086}
 --- !u!1 &8976751094467981144
 GameObject:
   m_ObjectHideFlags: 0
