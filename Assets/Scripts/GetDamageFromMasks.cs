@@ -13,7 +13,7 @@ public class GetDamageFromMasks : MonoBehaviour
 
     public void Update()
     {
-        var layerMask = LayerMask.GetMask("Ground");
+        var layerMask = LayerMask.GetMask("Mask");
 
         var inRange = Physics2D.OverlapCircleAll(transform.position, DetectionRadius, layerMask);
         foreach (var coll in inRange)
@@ -42,7 +42,7 @@ public class GetDamageFromMasks : MonoBehaviour
         {
             // trigger the explosion, player will be damaged from that script
             combo.TriggerCollisionEffect(transform.position);
-        } 
+        }
         
     }
 }
