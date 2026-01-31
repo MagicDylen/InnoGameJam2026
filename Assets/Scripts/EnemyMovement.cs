@@ -2,7 +2,16 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public int movementSpeed = 1;
+    float movementSpeed = 1f;
+
+    void Start()
+    {
+        TryGetComponent<EnemyStats>(out var stats);
+        if(stats)
+        {
+            movementSpeed = stats.Speed;
+        }
+    }
 
     private void FixedUpdate()
     {

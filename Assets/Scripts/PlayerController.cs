@@ -68,6 +68,13 @@ public class PlayerController : MonoBehaviour
     float groundDistance; // distance from origin to ground hit
     RaycastHit2D groundHit;
 
+    public Vector2 Velocity => rb.linearVelocity;
+    public bool IsGrounded => grounded;
+    public float MoveInput => moveInput;
+
+
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

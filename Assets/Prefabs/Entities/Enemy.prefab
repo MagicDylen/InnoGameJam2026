@@ -31,9 +31,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6491837252086605672}
-  - {fileID: 7140249639385631369}
+  m_Children: [{fileID: 7140249639385631369}, {fileID: 6491837252086605672}]
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7345465498777110015
@@ -48,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2be0cc6690ff4b94a7621fef93c8025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  movementSpeed: 1
 --- !u!212 &-361692814995530404
 SpriteRenderer:
   serializedVersion: 2
