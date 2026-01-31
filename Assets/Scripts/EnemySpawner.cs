@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab;
     private readonly float heightMax = 6f;
     private readonly float heightBorder = 5f;
     private readonly float heightMin = 0f;
@@ -21,11 +20,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Vector2 spawnPosition = DetermineRandomPosition();
-        GameObject enemyInstance = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-
-        EnemyMovement enemyMovement = enemyInstance.GetComponent<EnemyMovement>();
-        enemyMovement.SetTarget(GameController.Player);
+        Instantiate(ObjectHolder.EnemyPrefab, DetermineRandomPosition(), Quaternion.identity);
     }
 
     private Vector2 DetermineRandomPosition()

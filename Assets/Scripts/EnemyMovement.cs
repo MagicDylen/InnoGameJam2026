@@ -2,17 +2,11 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public int movementSpeed;
-    private GameObject _target;
-
-    public void SetTarget(GameObject target)
-    {
-        _target = target;
-    }
+    public int movementSpeed = 1;
 
     private void FixedUpdate()
     {
-        Vector3 direction = _target.transform.position - this.transform.position;
+        Vector3 direction = ObjectHolder.Player.transform.position - this.transform.position;
         this.transform.position += direction.normalized * (Time.fixedDeltaTime * movementSpeed);
     }
 }
