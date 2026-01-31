@@ -23,7 +23,7 @@ public class ColorComboEffect : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ren = gameObject.GetComponent<Renderer>();
+        ren = gameObject.GetComponentInChildren<Renderer>();
         AsssignRandomComboColor();
         
     }
