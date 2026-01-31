@@ -66,8 +66,6 @@ public class PlayerBorderImage : MonoBehaviour
     void Update()
     {
         float healthPercent = playerStats.TotalHealth / playerStats.MaxHealth;
-        Debug.Log("Health Percent: " + healthPercent);
-        
         Color col = image.color;
         float targetAlpha = 1f - healthPercent;
         col.a = Mathf.Lerp(col.a, targetAlpha, Time.deltaTime * 5f);
