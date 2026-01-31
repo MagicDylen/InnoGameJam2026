@@ -757,6 +757,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8185972883527235732, guid: f3cded803640a9b40a690c6b741b5083, type: 3}
+      propertyPath: SpawnInterval
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185972883527235732, guid: f3cded803640a9b40a690c6b741b5083, type: 3}
       propertyPath: MaskShapes.Array.size
       value: 1
       objectReference: {fileID: 0}

@@ -21,8 +21,13 @@ public class BecomeStaticAfterSeconds : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Invoke(nameof(MakeStatic), SecondsBeforeStatic);
+           BecomeStaticWithDelay(SecondsBeforeStatic);
         }
+    }
+
+    public void BecomeStaticWithDelay(float delay)
+    {
+        Invoke(nameof(MakeStatic), delay);
     }
 
     void MakeStatic()
