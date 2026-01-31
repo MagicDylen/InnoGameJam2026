@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   Healthpoints: 10
   Damage: 10
-  Speed: 2
+  Speed: 4
 --- !u!114 &7210931677473721185
 MonoBehaviour:
   m_ObjectHideFlags: 0

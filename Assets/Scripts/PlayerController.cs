@@ -68,9 +68,12 @@ public class PlayerController : MonoBehaviour
     float groundDistance; // distance from origin to ground hit
     RaycastHit2D groundHit;
 
-    public Vector2 Velocity => rb.linearVelocity;
+    public float VerticalSpeed => rb.linearVelocity.y;
     public bool IsGrounded => grounded;
     public float MoveInput => moveInput;
+
+    public float HorizontalSpeed => Mathf.Abs(moveInput);
+
 
 
 
