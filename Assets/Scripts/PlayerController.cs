@@ -19,6 +19,11 @@ public class PlayerController : MonoBehaviour
     [Header("Ground Mask")]
     public LayerMask groundMask;
 
+    [Header("Visuals")]
+    public Transform playerVisuals;
+    [Tooltip("Input threshold to prevent flip jitter when input is ~0.")]
+    public float flipDeadzone = 0.01f;
+
     [Header("Spring Feet (PD Hover)")]
     [Tooltip("Where rays start from (usually around feet/hips). If null, uses transform.")]
     public Transform springOrigin;
@@ -54,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
     float coyoteCounter;
     float jumpBufferCounter;
+    bool facingRight = true;
+
 
     // Cached ground info from last FixedUpdate spring cast
     bool grounded;
@@ -82,6 +89,9 @@ public class PlayerController : MonoBehaviour
             coyoteCounter = coyoteTime;
         else
             coyoteCounter -= Time.deltaTime;
+
+        UpdateFacing(); // <-- flip visuals here
+
     }
 
     void FixedUpdate()
@@ -120,6 +130,24 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.linearVelocity = v;
+    }
+
+    void UpdateFacing()
+    {
+        // Use input to decide facing (most platformers do this).
+        // If you prefer velocity-based facing, replace moveInput with rb.linearVelocity.x.
+        if (moveInput > flipDeadzone) SetFacing(true);
+        else if (moveInput < -flipDeadzone) SetFacing(false);
+    }
+
+    void SetFacing(bool right)
+    {
+        if (facingRight == right) return;
+        facingRight = right;
+
+        Vector3 s = playerVisuals.localScale;
+        s.x = Mathf.Abs(s.x) * (facingRight ? 1f : -1f);
+        playerVisuals.localScale = s;
     }
 
     void UpdateGroundInfo()
