@@ -1,19 +1,24 @@
+using Mono.Cecil.Cil;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class ColorComboEffect : MonoBehaviour
 {
 
-    public enum ComboColor
+    public enum MaskType
     {
         Inactive = 0,
-        Yellow, 
-        Red,
-        Blue,
-        Green,
+        Spike, 
+        Explosive,
+        Standard,
+        Sticky,
     }
 
     Renderer ren;
-    public ComboColor AssignedColor;
+    public MaskType AssignedType;
+    public float ExplosionRadius = 3;
+    public float ExplosionForce = 300;
+    private bool triggered = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,19 +30,19 @@ public class ColorComboEffect : MonoBehaviour
 
     void AsssignRandomComboColor()
     {
-        var v = System.Enum.GetValues (typeof (ComboColor));
-        AssignedColor = (ComboColor) v.GetValue((int)Random.Range(1, v.Length));
+        var v = System.Enum.GetValues (typeof (MaskType));
+        AssignedType = (MaskType) v.GetValue((int)Random.Range(1, v.Length));
         SetRenderColor();
     }
 
     public void SetRenderColor()
     {
-        Color randColor = AssignedColor switch {
-            ComboColor.Yellow => Color.yellow,
-            ComboColor.Red => Color.red,
-            ComboColor.Blue => Color.blue,
-            ComboColor.Green => Color.green,
-            ComboColor.Inactive => Color.black,
+        Color randColor = AssignedType switch {
+            MaskType.Spike => Color.yellow,
+            MaskType.Explosive => Color.red,
+            MaskType.Standard => Color.blue,
+            MaskType.Sticky => Color.green,
+            MaskType.Inactive => Color.black,
             _ => Color.gray,
         };
 
@@ -59,18 +64,52 @@ public class ColorComboEffect : MonoBehaviour
         Rigidbody2D rb;
         gameObject.TryGetComponent<Rigidbody2D>(out rb);
         
-        if(otherCombo && otherCombo.AssignedColor == AssignedColor)
+        if(otherCombo && otherCombo.AssignedType == AssignedType)
         {
-            TriggerCollisionEffect();
-            AssignedColor = ComboColor.Inactive;
+            TriggerCollisionEffect(gameObject.transform.position);
             SetRenderColor();
-            otherCombo.AssignedColor = ComboColor.Inactive;
             otherCombo.SetRenderColor();
         }
     }
 
-    private void TriggerCollisionEffect()
+    private void TriggerCollisionEffect(Vector2 origin)
     {
-        // here be code depending on ComboColor
+        if(triggered) return;
+        triggered = true;
+
+        if (AssignedType == MaskType.Explosive)
+        {
+            Vector2 pos = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
+            var layerMask = LayerMask.GetMask("Ground");
+
+            var inRange = Physics2D.OverlapCircleAll(pos, ExplosionRadius, layerMask);
+            Debug.Log($"With {inRange.Length} Boom");
+            foreach (var mask in inRange)
+            {
+                mask.gameObject.TryGetComponent<ColorComboEffect>(out var otherCombo);
+                if(!otherCombo)
+                {
+                    continue;
+                }
+                otherCombo.TriggerCollisionEffect(pos);
+                Destroy(gameObject);
+            }
+        } 
+        else if (AssignedType == MaskType.Standard)
+        {
+            Destroy(gameObject);
+        }
+        
+        else // all other types
+        {
+            var rb = gameObject.GetComponent<Rigidbody2D>();
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.AddForce(((Vector2)gameObject.transform.position - origin) * ExplosionForce, ForceMode2D.Impulse);
+            gameObject.TryGetComponent<BecomeStaticAfterSeconds>(out var staticComponent);
+            if(staticComponent)
+            {
+                staticComponent.BecomeStaticWithDelay(10f);
+            }
+        }
     }
 }
