@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current != null && ObjectHolder.ActionMap["Spawn"].WasPressedThisFrame())
         {
             SpawnEnemy();
         }

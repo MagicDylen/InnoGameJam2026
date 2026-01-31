@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Disable spring while rising after a jump (prevents spring fighting jump).")]
     public bool disableSpringWhileRising = true;
 
+    public bool facingRight = true;
+
     Rigidbody2D rb;
 
     float moveInput;
@@ -59,7 +61,6 @@ public class PlayerController : MonoBehaviour
 
     float coyoteCounter;
     float jumpBufferCounter;
-    bool facingRight = true;
 
 
     // Cached ground info from last FixedUpdate spring cast
