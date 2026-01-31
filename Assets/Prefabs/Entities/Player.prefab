@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 2031278320427737147}
   - component: {fileID: 7174057287864082628}
   - component: {fileID: 5183567093745332570}
+  - component: {fileID: -1340385955930972665}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -299,6 +300,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
   animator: {fileID: 7838669357100749086}
+--- !u!114 &-1340385955930972665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8944664320719757332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1c1e996fe86064784e1e8f78fff7b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GetDamageFromMasks
+  DetectionRadius: 1
 --- !u!1 &8976751094467981144
 GameObject:
   m_ObjectHideFlags: 0
