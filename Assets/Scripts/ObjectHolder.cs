@@ -14,9 +14,14 @@ public class ObjectHolder : MonoBehaviour
 
     private void Start()
     {
-        Player = FindAnyObjectByType<PlayerController>().gameObject;
+        Player = gameObject.GetComponent<PlayerController>().gameObject;
         EnemyPrefab = enemyPrefab;
         AttackPrefab = attackPrefab;
         ActionMap = inputActions.FindActionMap("Player");
+    }
+
+    public void endGame()
+    {
+        
     }
 }
