@@ -45,3 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   enemyPrefab: {fileID: 636966855158957081, guid: 935aee9170ec0467d8864198f7349f85, type: 3}
+  attackPrefab: {fileID: 7110127565010437560, guid: 16a7c3fa6435d492cbb44d8b5b29c972, type: 3}
+  inputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

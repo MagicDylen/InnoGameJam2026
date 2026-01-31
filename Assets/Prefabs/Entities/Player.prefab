@@ -103,6 +103,8 @@ GameObject:
   - component: {fileID: 9002394028529446437}
   - component: {fileID: 5137231456392220696}
   - component: {fileID: 2031278320427737147}
+  - component: {fileID: 7174057287864082628}
+  - component: {fileID: 5183567093745332570}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -224,6 +226,38 @@ MonoBehaviour:
   maxUpwardForce: 250
   stickDownForce: 15
   disableSpringWhileRising: 1
+--- !u!114 &7174057287864082628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8944664320719757332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181177e8ae2a0874384d3dc475e28d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  SpeedMultiplier: 1
+  DamageMultiplier: 1
+  TotalHealth: 100
+  MaxHealth: 100
+  HealthPickUpAdd: 20
+  DamagePickUpAdd: 0.2
+  SpeeedPickUpAdd: 0.1
+  facingRight: 1
+--- !u!114 &5183567093745332570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8944664320719757332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b1e67d7976d4e35a59b1b2f97df889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
 --- !u!1 &8976751094467981144
 GameObject:
   m_ObjectHideFlags: 0
