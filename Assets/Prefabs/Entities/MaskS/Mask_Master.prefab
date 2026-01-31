@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4221114829402415294}
   - component: {fileID: 8755185324355926872}
   - component: {fileID: 8733489224607065701}
-  - component: {fileID: 28024315478656752}
+  - component: {fileID: 5576692016337187882}
   m_Layer: 6
-  m_Name: TestBall1
+  m_Name: Mask_Master
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,9 +28,9 @@ Transform:
   m_GameObject: {fileID: 3858703791989906727}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.57, y: 1.01, z: 0}
-  m_LocalScale: {x: 1.06, y: 1.06, z: 1.06}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7995270543477407559}
   m_Father: {fileID: 0}
@@ -98,7 +98,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &28024315478656752
+--- !u!114 &5576692016337187882
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,10 +107,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3858703791989906727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc388b1a5d7d1ce429565bcf2801026f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eeac124fa81bc844bab41d922b69106, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  secondsBeforeStatic: 0
+  m_EditorClassIdentifier: Assembly-CSharp::ColorComboEffect
+  AssignedType: 3
+  ExplosionRadius: 3
+  ExplosionForce: 300
 --- !u!1 &9101451013018322323
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +195,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.6126624, g: 1, b: 0.36320752, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
