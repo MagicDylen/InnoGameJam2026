@@ -48,24 +48,24 @@ MonoBehaviour:
   player: {fileID: 0}
   winConditionTop: {fileID: 5615971949334853435}
   heightBuffer: 20
-  horizontalRange: 10
+  horizontalRange: 2
   cooldowns:
-    level1Cooldown: 0.5
-    level2Cooldown: 0.3
-    level3Cooldown: 0.1
+    level1Cooldown: 1
+    level2Cooldown: 0.7
+    level3Cooldown: 0.3
   typeConfigs:
   - type: 0
-    weight: 50
+    weight: 70
     tier1Prefab: {fileID: 5409097319072931802, guid: 026c411e45b37564bb2b59172d791fda, type: 3}
     tier2Prefab: {fileID: 5409097319072931802, guid: 129336462795c424696562867be2fcdd, type: 3}
     tier3Prefab: {fileID: 5409097319072931802, guid: 58fa9e882ce522d4594a1175077ede2e, type: 3}
   - type: 1
-    weight: 30
+    weight: 20
     tier1Prefab: {fileID: 1421995936270574147, guid: 94653065dc081fc4ea5dbc6b5f40d9ac, type: 3}
     tier2Prefab: {fileID: 1421995936270574147, guid: bde1169d19e94ea42aceaf26cb47ce85, type: 3}
     tier3Prefab: {fileID: 5409097319072931802, guid: 58fa9e882ce522d4594a1175077ede2e, type: 3}
   - type: 2
-    weight: 20
+    weight: 10
     tier1Prefab: {fileID: 251597048558487892, guid: dc4b7ecb6fed97c40bcba92f2f74725d, type: 3}
     tier2Prefab: {fileID: 251597048558487892, guid: 74ed436086c23db4d8370c8062c47d23, type: 3}
     tier3Prefab: {fileID: 251597048558487892, guid: 2afa600652bf92f46a2abb30c7188054, type: 3}

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4886331918528389595}
   - component: {fileID: 7210931677473721185}
   - component: {fileID: 687998902845955315}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Mask_Master
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3858703791989906727}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eeac124fa81bc844bab41d922b69106, type: 3}
   m_Name: 
@@ -116,6 +116,11 @@ MonoBehaviour:
   AssignedType: 3
   ExplosionRadius: 3
   ExplosionForce: 300
+  active: 0
+  particlesExplosionPrefab: {fileID: 3745456296972243897, guid: b6d67264ec64bfe4b8fff976677cbbec, type: 3}
+  damageParticlesPrefab: {fileID: 3745456296972243897, guid: b6d67264ec64bfe4b8fff976677cbbec, type: 3}
+  littleParticlesPrefab: {fileID: 3745456296972243897, guid: 489f7cb6f7879e949895178baf1400fc, type: 3}
+  enemyKillParticlesPrefab: {fileID: 3745456296972243897, guid: b6d67264ec64bfe4b8fff976677cbbec, type: 3}
 --- !u!114 &4886331918528389595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7995270543477407559}
   - component: {fileID: 6598038766243825840}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

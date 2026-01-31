@@ -10,7 +10,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] float DamageMultiplier = 1;
     [SerializeField] public float TotalHealth = 100;
     [SerializeField] public float MaxHealth = 100;
-    [SerializeField] float HeartValue = 20;
+    [SerializeField] public float HeartValue = 20;
     [SerializeField] float DamagePickUpAdd = 0.2f;
     [SerializeField] float SpeeedPickUpAdd = 0.1f;
     [SerializeField] public bool IsDead = false;
@@ -22,13 +22,13 @@ public class PlayerStats : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            DecreaseHealth();
+            DecreaseHealth(HeartValue);
             Debug.Log("Health: " + TotalHealth);
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            IncreaseHealth();
+            IncreaseHealth(HeartValue);
             Debug.Log("Health: " + TotalHealth);
         }
     }
@@ -40,14 +40,14 @@ public class PlayerStats : MonoBehaviour
     }
 
 
-    public void IncreaseHealth()
+    public void IncreaseHealth(float amount)
     {
         if (IsDead) return;
 
-        TotalHealth = math.min(MaxHealth, TotalHealth +  HeartValue);
+        TotalHealth = math.min(MaxHealth, TotalHealth +  amount);
     }
 
-    public void DecreaseHealth()
+    public void DecreaseHealth(float amount)
     {
         if (IsDead) return;
         
@@ -55,7 +55,7 @@ public class PlayerStats : MonoBehaviour
             return;
             
         lastDamageTime = Time.time;
-        TotalHealth -= HeartValue;
+        TotalHealth -= amount;
 
         if (TotalHealth <= 0)
         {

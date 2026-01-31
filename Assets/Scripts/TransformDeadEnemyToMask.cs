@@ -24,7 +24,7 @@ public class TransformDeadEnemyToMask : MonoBehaviour
             TryGetComponent<EnemyStats>(out var stats);
             if(stats) Destroy(stats);
             TryGetComponent<ColorComboEffect>(out var combo);
-            combo.enabled = true;
+            combo.active = true;
             var ps = gameObject.GetComponentInChildren<ParticleSystem>();
             if(ps) Destroy(ps);
         }   
