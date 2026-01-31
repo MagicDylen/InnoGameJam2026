@@ -108,7 +108,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3858703791989906727}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eeac124fa81bc844bab41d922b69106, type: 3}
   m_Name: 
@@ -116,6 +116,7 @@ MonoBehaviour:
   AssignedType: 3
   ExplosionRadius: 3
   ExplosionForce: 300
+  active: 0
   particlesExplosionPrefab: {fileID: 3745456296972243897, guid: b6d67264ec64bfe4b8fff976677cbbec, type: 3}
   damageParticlesPrefab: {fileID: 3745456296972243897, guid: b6d67264ec64bfe4b8fff976677cbbec, type: 3}
   littleParticlesPrefab: {fileID: 3745456296972243897, guid: 489f7cb6f7879e949895178baf1400fc, type: 3}
