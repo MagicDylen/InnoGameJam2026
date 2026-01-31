@@ -27,6 +27,9 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    private float lastDamageTime = -Mathf.Infinity;
+    [SerializeField] private float damageCooldown = 1f;
+
     public void IncreaseHealth()
     {
         if (IsDead) return;
@@ -38,6 +41,10 @@ public class PlayerStats : MonoBehaviour
     {
         if (IsDead) return;
         
+        if (Time.time - lastDamageTime < damageCooldown)
+            return;
+            
+        lastDamageTime = Time.time;
         TotalHealth -= HeartValue;
 
         if (TotalHealth <= 0)
