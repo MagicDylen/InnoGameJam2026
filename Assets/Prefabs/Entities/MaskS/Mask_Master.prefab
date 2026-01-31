@@ -116,6 +116,10 @@ MonoBehaviour:
   AssignedType: 3
   ExplosionRadius: 3
   ExplosionForce: 300
+  particlesExplosionPrefab: {fileID: 3745456296972243897, guid: b6d67264ec64bfe4b8fff976677cbbec, type: 3}
+  damageParticlesPrefab: {fileID: 3745456296972243897, guid: b6d67264ec64bfe4b8fff976677cbbec, type: 3}
+  littleParticlesPrefab: {fileID: 3745456296972243897, guid: 489f7cb6f7879e949895178baf1400fc, type: 3}
+  enemyKillParticlesPrefab: {fileID: 3745456296972243897, guid: b6d67264ec64bfe4b8fff976677cbbec, type: 3}
 --- !u!114 &4886331918528389595
 MonoBehaviour:
   m_ObjectHideFlags: 0
