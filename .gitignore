@@ -55,6 +55,8 @@ ExportedObj/
 *.opendb
 *.VC.db
 
+InnoGameJam2026.slnx
+
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
