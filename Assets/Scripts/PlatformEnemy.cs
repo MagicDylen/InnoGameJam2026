@@ -60,7 +60,8 @@ public class PlatformEnemy : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
-
+        var am = FindFirstObjectByType<AudioManager>();
+        am?.PlayOneShot(am.EnemyDeath, gameObject.transform.position);
         damageTrigger.enabled = false;
 
         spriteToTint.color = deadTint;
