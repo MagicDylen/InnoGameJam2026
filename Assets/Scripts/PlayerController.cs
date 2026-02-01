@@ -186,6 +186,13 @@ public class PlayerController : MonoBehaviour
             else
                 StopSwoosh();
         }
+
+        // If just left ground without jumping, only allow 1 air jump
+        if (!grounded && wasGrounded && jumpsRemaining == maxJumps)
+        {
+            jumpsRemaining = 1;
+        }
+
         wasGrounded = grounded;
 
         Vector2 v = rb.linearVelocity;
@@ -201,8 +208,8 @@ public class PlayerController : MonoBehaviour
 
         if (allowJump && jumpBufferCounter > 0f)
         {
-            bool canGroundJump = (coyoteCounter > 0f);
-            bool canAirJump = (!canGroundJump && jumpsRemaining > 0);
+            bool canGroundJump = grounded && v.y <= 0f;
+            bool canAirJump = !grounded && jumpsRemaining > 0;
 
             if (canGroundJump || canAirJump)
             {
