@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlatformEnemy : MonoBehaviour
 {
+    [SerializeField] private bool isImmortal = false;
+
     [Header("Movement")]
     [SerializeField] private float fallSpeed = 1f;
 
@@ -54,27 +56,25 @@ public class PlatformEnemy : MonoBehaviour
 
     public void Kill()
     {
+        if (isImmortal) return;
         if (isDead) return;
+
         isDead = true;
 
-        // Stop doing damage
         damageTrigger.enabled = false;
 
-        // Visual feedback: tint to indicate "standable now"
         spriteToTint.color = deadTint;
-        Debug.Log("deadSprite is:" + deadSprite);
         _spriteRenderer.sprite = deadSprite;
 
-        // Particles
         if (deathParticlesPrefab != null)
             Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
 
         if (vfxPrefab != null)
             vfxPrefab.gameObject.SetActive(false);
 
-        // Hit-stop
         HitStop.Do(hitStopDuration, hitStopTimeScale);
     }
+
 
     // Called by your DamageHitbox child script
     public void TryDamagePlayer(Collider2D other)

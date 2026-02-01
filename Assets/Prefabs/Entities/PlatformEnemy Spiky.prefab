@@ -57,6 +57,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4942921680667150882, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+      propertyPath: fallSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4942921680667150882, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+      propertyPath: isImmortal
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4942921680667150882, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
       propertyPath: damageAmount
       value: 30
       objectReference: {fileID: 0}
