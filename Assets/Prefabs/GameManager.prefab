@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902877358439911319}
   - component: {fileID: 1733619923583804891}
+  - component: {fileID: 4199481803135915031}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -71,6 +72,18 @@ MonoBehaviour:
     tier2Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
     tier3Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
   isSpawning: 1
+--- !u!114 &4199481803135915031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785929623737097830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c2afbd8ca9c794cae3174aaa5aa897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerWinScreen
 --- !u!1001 &3248344313226259803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6988354391110294112, guid: 1288cefe4fb8acd418125bf9d2c8b006, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 97.5
+      value: 90.67
       objectReference: {fileID: 0}
     - target: {fileID: 6988354391110294112, guid: 1288cefe4fb8acd418125bf9d2c8b006, type: 3}
       propertyPath: m_LocalPosition.z
