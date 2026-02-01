@@ -43,11 +43,9 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639055450790275557
+  lastModified: 639055477072539623
   FileSizes:
   - Name: Desktop
-    Value: 870
-  - Name: Music
     Value: 870
   - Name: SFX
     Value: 870
@@ -67,7 +65,7 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639055450790275557
+  lastModified: 639055477072524561
   FileSizes:
   - Name: Desktop
     Value: 1074
@@ -111,7 +109,7 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/MusicBank.bank
   Name: MusicBank
   StudioPath: bank:/MusicBank
-  lastModified: 639055450790401508
+  lastModified: 639055477072620275
   FileSizes:
   - Name: Desktop
     Value: 1806592
@@ -140,7 +138,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -3326613938183618420}
   cacheVersion: 131858
-  cacheTime: 639055450790401508
+  cacheTime: 639055477072620275
   SerializableEventsDict:
   - key: event:/Epic_Music
     index: 0

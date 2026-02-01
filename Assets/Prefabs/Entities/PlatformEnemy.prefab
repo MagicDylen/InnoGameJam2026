@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1960000927907488811}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00000011921, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.35450798, y: 0.35450798, z: 0.35450798}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -119,14 +119,14 @@ Transform:
   m_GameObject: {fileID: 4432868779276160143}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.61, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 839495542975235383}
   - {fileID: 1109230407154275535}
   - {fileID: 5848714725753258998}
-  - {fileID: 3301493895475380869}
+  - {fileID: 1773827355815302682}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &7309616532496222487
@@ -190,7 +190,9 @@ MonoBehaviour:
   fallSpeed: 1
   damageAmount: 20
   damageTrigger: {fileID: 4029686227609963756}
-  vfxPrefab: {fileID: 3416948650834936102}
+  vfxPrefab: {fileID: 1884709242281645497}
+  deadSprite: {fileID: 1367396717802905032, guid: df5a370bdc9f28a4b947491c93028d12, type: 3}
+  aliveSprite: {fileID: 889624331538611974, guid: bd3bc1680d0cb1c4bb3c09e3d2678f4c, type: 3}
   spriteToTint: {fileID: 2067517311429037643}
   deadTint: {r: 0.8396226, g: 0.8273451, b: 0.4712976, a: 1}
   deathParticlesPrefab: {fileID: 8647349328802988228, guid: b6d67264ec64bfe4b8fff976677cbbec, type: 3}
@@ -341,7 +343,7 @@ Transform:
   m_GameObject: {fileID: 8831828812574241695}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00000011921, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.35450798, y: 0.35450798, z: 0.35450798}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -406,7 +408,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1001 &1161023610859010406
+--- !u!1001 &2688769317469957625
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -458,23 +460,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3Fires
       objectReference: {fileID: 0}
-    - target: {fileID: 6155632541007969687, guid: 9e160427ffeaecc4c98c0f056cc3b1ba, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6155632541007969687, guid: 9e160427ffeaecc4c98c0f056cc3b1ba, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e160427ffeaecc4c98c0f056cc3b1ba, type: 3}
---- !u!4 &3301493895475380869 stripped
+--- !u!4 &1773827355815302682 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4453369427286162403, guid: 9e160427ffeaecc4c98c0f056cc3b1ba, type: 3}
-  m_PrefabInstance: {fileID: 1161023610859010406}
+  m_PrefabInstance: {fileID: 2688769317469957625}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3416948650834936102 stripped
+--- !u!1 &1884709242281645497 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4573326682661058624, guid: 9e160427ffeaecc4c98c0f056cc3b1ba, type: 3}
-  m_PrefabInstance: {fileID: 1161023610859010406}
+  m_PrefabInstance: {fileID: 2688769317469957625}
   m_PrefabAsset: {fileID: 0}
