@@ -32,6 +32,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4029686227609963756, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+      propertyPath: m_Size.x
+      value: 1.0263791
+      objectReference: {fileID: 0}
+    - target: {fileID: 4029686227609963756, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.007796854
+      objectReference: {fileID: 0}
     - target: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
       propertyPath: m_Name
       value: PlatformEnemy Spiky
@@ -83,6 +91,14 @@ PrefabInstance:
     - target: {fileID: 6662937565259593086, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7309616532496222487, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9676168
+      objectReference: {fileID: 0}
+    - target: {fileID: 7309616532496222487, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.03742589
       objectReference: {fileID: 0}
     - target: {fileID: 8656672881779917243, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
       propertyPath: InitialModule.startColor.maxColor.a

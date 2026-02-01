@@ -4,17 +4,23 @@ using UnityEngine;
 
 public sealed class DynamicEnemySpawner : MonoBehaviour
 {
+    // NOTE:
+    // Keeping enum names unchanged to avoid breaking other systems.
+    // Mapping requested design:
+    // Standard = Normal
+    // Bouncy   = Explosive (rename later if desired)
+    // Spikey   = Spikey
     public enum EnemyType { Normal, Spikey, Explosive }
     public enum EnemyTier { Tier1 = 1, Tier2 = 2, Tier3 = 3 }
-    private float lastXSpwanPos = 0;
 
+    private float lastXSpwanPos = 0;
 
     [Serializable]
     public class TypeConfig
     {
         public EnemyType type;
 
-        [Tooltip("Relative weight for selecting this enemy type (e.g., 70, 20, 10). Can be any non-negative numbers.")]
+        [Tooltip("DEPRECATED: type spawn weight is now configured per level in 'Level Type Weights'. Kept to avoid breaking existing setups.")]
         [Min(0f)] public float weight = 1f;
 
         [Header("Prefabs (must be assigned)")]
@@ -58,6 +64,61 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
         }
     }
 
+    [Serializable]
+    public struct LevelTypeWeights
+    {
+        [Header("Level 1 (0%..anything)")]
+        [Tooltip("Standard = Normal")]
+        [Min(0f)] public float level1Standard;
+
+        [Tooltip("Bouncy = Explosive")]
+        [Min(0f)] public float level1Bouncy;
+
+        [Tooltip("Spikey = Spikey")]
+        [Min(0f)] public float level1Spikey;
+
+        [Header("Level 2 (0%..anything)")]
+        [Min(0f)] public float level2Standard;
+        [Min(0f)] public float level2Bouncy;
+        [Min(0f)] public float level2Spikey;
+
+        [Header("Level 3 (0%..anything)")]
+        [Min(0f)] public float level3Standard;
+        [Min(0f)] public float level3Bouncy;
+        [Min(0f)] public float level3Spikey;
+
+        public float GetWeight(EnemyType type, int level)
+        {
+            return (type, level) switch
+            {
+                (EnemyType.Normal, 1) => level1Standard,
+                (EnemyType.Explosive, 1) => level1Bouncy,
+                (EnemyType.Spikey, 1) => level1Spikey,
+
+                (EnemyType.Normal, 2) => level2Standard,
+                (EnemyType.Explosive, 2) => level2Bouncy,
+                (EnemyType.Spikey, 2) => level2Spikey,
+
+                (EnemyType.Normal, 3) => level3Standard,
+                (EnemyType.Explosive, 3) => level3Bouncy,
+                (EnemyType.Spikey, 3) => level3Spikey,
+
+                _ => throw new ArgumentOutOfRangeException(nameof(level), level, "Level must be 1..3")
+            };
+        }
+
+        public float TotalForLevel(int level)
+        {
+            return level switch
+            {
+                1 => level1Standard + level1Bouncy + level1Spikey,
+                2 => level2Standard + level2Bouncy + level2Spikey,
+                3 => level3Standard + level3Bouncy + level3Spikey,
+                _ => throw new ArgumentOutOfRangeException(nameof(level), level, "Level must be 1..3")
+            };
+        }
+    }
+
     private const string PLAYER_TAG = "Player";
     private const string WINCONDITION_TAG = "WinCondition";
 
@@ -90,7 +151,28 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
         level3Cooldown = 0.7f
     };
 
-    [Header("Type Weights + Prefabs (3 Types, each 3 Tiers)")]
+    [Header("Type Weights PER LEVEL (Standard/Normal, Bouncy/Explosive, Spikey)")]
+    [SerializeField]
+    private LevelTypeWeights levelTypeWeights = new LevelTypeWeights
+    {
+        // Level 1: 50% Standard, 30% Bouncy, 20% Spikey
+        level1Standard = 50f,
+        level1Bouncy = 30f,
+        level1Spikey = 20f,
+
+        // Level 2: 30% Standard, 40% Bouncy, 30% Spikey
+        level2Standard = 30f,
+        level2Bouncy = 40f,
+        level2Spikey = 30f,
+
+        // Level 3: 0% Standard, 50% Bouncy, 40% Spikey
+        // (These don't have to sum to 100; they're weights. But using your numbers.)
+        level3Standard = 0f,
+        level3Bouncy = 50f,
+        level3Spikey = 40f
+    };
+
+    [Header("Type Prefabs (3 Types, each 3 Tiers)")]
     [Tooltip("Must contain exactly 3 entries (Normal, Spikey, Explosive), each with 3 tier prefabs assigned.")]
     [SerializeField] private List<TypeConfig> typeConfigs = new List<TypeConfig>(3);
 
@@ -113,7 +195,7 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        // Try to auto-find in editor too (no throwing here � just log loudly).
+        // Try to auto-find in editor too (no throwing here — just log loudly).
         try
         {
             AutoFindReferencesOrThrow();
@@ -175,7 +257,7 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
         float progress01 = GetProgress01();
         int level = GetLevelFromProgress(progress01);
 
-        EnemyType chosenType = ChooseTypeByWeight();
+        EnemyType chosenType = ChooseTypeByWeight(level);
         EnemyTier chosenTier = ChooseTierByLevel(level);
 
         GameObject prefab = GetPrefab(chosenType, chosenTier);
@@ -192,7 +274,7 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
         float z = UnityEngine.Random.Range(-horizontalRange, horizontalRange);
 
         // check if too narrow to last spawn
-        if(x >= lastXSpwanPos - minDistanceFromLastSpawn && x <= lastXSpwanPos + minDistanceFromLastSpawn)
+        if (x >= lastXSpwanPos - minDistanceFromLastSpawn && x <= lastXSpwanPos + minDistanceFromLastSpawn)
         {
             return GetSpawnPosition();
         }
@@ -223,27 +305,26 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
         return 3;
     }
 
-    private EnemyType ChooseTypeByWeight()
+    private EnemyType ChooseTypeByWeight(int level)
     {
-        float total = 0f;
-        for (int i = 0; i < typeConfigs.Count; i++)
-            total += Mathf.Max(0f, typeConfigs[i].weight);
+        // Weights are now per-level.
+        float total = Mathf.Max(0f, levelTypeWeights.TotalForLevel(level));
 
         if (total <= 0f)
-            throw new InvalidOperationException("Total type weight is 0. Set at least one TypeConfig weight > 0.");
+            throw new InvalidOperationException($"Total type weight for Level {level} is 0. Set at least one weight > 0 for that level.");
 
         float roll = UnityEngine.Random.Range(0f, total);
         float running = 0f;
 
-        for (int i = 0; i < typeConfigs.Count; i++)
-        {
-            float w = Mathf.Max(0f, typeConfigs[i].weight);
-            running += w;
-            if (roll <= running)
-                return typeConfigs[i].type;
-        }
+        // Keep selection consistent and explicit (Standard/Normal, Bouncy/Explosive, Spikey)
+        running += Mathf.Max(0f, levelTypeWeights.GetWeight(EnemyType.Normal, level));
+        if (roll <= running) return EnemyType.Normal;
 
-        return typeConfigs[typeConfigs.Count - 1].type;
+        running += Mathf.Max(0f, levelTypeWeights.GetWeight(EnemyType.Explosive, level));
+        if (roll <= running) return EnemyType.Explosive;
+
+        // Remaining bucket
+        return EnemyType.Spikey;
     }
 
     private static EnemyTier ChooseTierByLevel(int level)
@@ -313,5 +394,15 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
 
         if (heightBuffer < 0f || horizontalRange < 0f)
             throw new InvalidOperationException("heightBuffer and horizontalRange must be >= 0.");
+
+        // Level weight sanity
+        for (int level = 1; level <= 3; level++)
+        {
+            float total = levelTypeWeights.TotalForLevel(level);
+            if (total < 0f)
+                throw new InvalidOperationException($"Level {level} type weights total is negative (??). Check inspector values.");
+            if (Mathf.Approximately(total, 0f))
+                throw new InvalidOperationException($"Level {level} has total type weight 0. Set at least one of Standard/Bouncy/Spikey > 0.");
+        }
     }
 }

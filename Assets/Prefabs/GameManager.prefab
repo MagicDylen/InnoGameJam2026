@@ -52,25 +52,25 @@ MonoBehaviour:
   horizontalRange: 5
   minDistanceFromLastSpawn: 2
   cooldowns:
-    level1Cooldown: 3
-    level2Cooldown: 3
+    level1Cooldown: 1
+    level2Cooldown: 2
     level3Cooldown: 3
   typeConfigs:
   - type: 0
-    weight: 70
+    weight: 50
     tier1Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
-    tier2Prefab: {fileID: 848154947987351617, guid: 57399e311c7546342874dde1db6da217, type: 3}
-    tier3Prefab: {fileID: 7046896382385237211, guid: 8b53e0eeeb056c748821a7505eb6399f, type: 3}
+    tier2Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+    tier3Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
   - type: 1
     weight: 20
-    tier1Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
-    tier2Prefab: {fileID: 848154947987351617, guid: 57399e311c7546342874dde1db6da217, type: 3}
+    tier1Prefab: {fileID: 7046896382385237211, guid: 8b53e0eeeb056c748821a7505eb6399f, type: 3}
+    tier2Prefab: {fileID: 7046896382385237211, guid: 8b53e0eeeb056c748821a7505eb6399f, type: 3}
     tier3Prefab: {fileID: 7046896382385237211, guid: 8b53e0eeeb056c748821a7505eb6399f, type: 3}
   - type: 2
-    weight: 10
-    tier1Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+    weight: 40
+    tier1Prefab: {fileID: 848154947987351617, guid: 57399e311c7546342874dde1db6da217, type: 3}
     tier2Prefab: {fileID: 848154947987351617, guid: 57399e311c7546342874dde1db6da217, type: 3}
-    tier3Prefab: {fileID: 7046896382385237211, guid: 8b53e0eeeb056c748821a7505eb6399f, type: 3}
+    tier3Prefab: {fileID: 848154947987351617, guid: 57399e311c7546342874dde1db6da217, type: 3}
   isSpawning: 1
 --- !u!114 &4199481803135915031
 MonoBehaviour:

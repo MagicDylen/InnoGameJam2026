@@ -365,8 +365,8 @@ MonoBehaviour:
   groundSnapSkin: 0.02
   snapToGroundOnFastFall: 1
   enableSpinning: 1
-  spinUpBoost: 10
-  spinUpBoostAdd: 6
+  spinUpBoost: 7
+  spinUpBoostAdd: 5
   spinMaxUpVelocity: 22
   moveSpeed: 30
   maxHorizontalSpeed: 7
