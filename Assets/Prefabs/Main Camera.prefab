@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   yOffset: 2
   smoothSpeed: 6
+  minY: 1.26
 --- !u!114 &8806722699434429737
 MonoBehaviour:
   m_ObjectHideFlags: 0
