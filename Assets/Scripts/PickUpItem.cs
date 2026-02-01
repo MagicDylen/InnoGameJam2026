@@ -12,6 +12,8 @@ public class PickUpItem : MonoBehaviour
     }
 
     [SerializeField] Type ItemType = Type.Undefined;
+    [SerializeField] float HealthPickupAmount = 15f;
+    
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -32,7 +34,7 @@ public class PickUpItem : MonoBehaviour
             case Type.Undefined:
                 break;
             case Type.Health:
-                stats.IncreaseHealth(stats.HeartValue);
+                stats.IncreaseHealth(HealthPickupAmount);
                 break;
             case Type.Damage:
                 stats.IncreaseDamage();
