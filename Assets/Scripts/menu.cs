@@ -4,8 +4,7 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        Debug.Log("Player wanna play!");
-        // SceneManager.LoadScene("StartingScene");
+        SceneManager.LoadScene("GameScene");
     }
     public void OpenSettings()
     {
