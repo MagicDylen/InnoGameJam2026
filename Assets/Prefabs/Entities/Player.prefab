@@ -370,6 +370,12 @@ MonoBehaviour:
   maxJumps: 2
   secondJumpSwooshObject: {fileID: 8968148460700175243}
   swooshDuration: 0.2
+  slashSpriteRenderer: {fileID: 6067283090410704240}
+  normalSlashColor: {r: 1, g: 1, b: 1, a: 1}
+  juggleSlashColor: {r: 0, g: 0.9902086, b: 1, a: 1}
+  juggleFlash: 1
+  juggleFlashSpeed: 14
+  juggleSlashScaleMultiplier: 0.8
   playerVisuals: {fileID: 2133316490961544827}
   flipDeadzone: 0.01
   normalPlayerSpriteRenderer: {fileID: 1541553204042242021}
@@ -385,12 +391,12 @@ MonoBehaviour:
   defaultHurtLockDuration: 0.5
   disableJumpDuringHurtLock: 1
   clearJumpBufferOnHit: 1
-  facingRight: 1
   fallMultiplier: 4
   lowJumpMultiplier: 2
   groundMask:
     serializedVersion: 2
     m_Bits: 320
+  facingRight: 1
 --- !u!114 &7174057287864082628
 MonoBehaviour:
   m_ObjectHideFlags: 0
