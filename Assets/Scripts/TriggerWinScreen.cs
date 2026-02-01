@@ -17,9 +17,15 @@ public class TriggerWinScreen : MonoBehaviour
         if(!spawner) return;
         if(!winConditionMet && spawner.GetProgress01() >= 1.0f )
         {
+            var playerAnim = FindAnyObjectByType<PlayerAnimator>();
+            playerAnim.animator.SetTrigger("Gold");
+
             winConditionMet = true;
             ObjectHolder objHolder = FindAnyObjectByType<ObjectHolder>();
             ObjectHolder.Player.TryGetComponent<PlayerStats>(out var stats);
+            ObjectHolder.Player.TryGetComponent<Rigidbody2D>(out var rb);
+            rb.bodyType = RigidbodyType2D.Static;
+
             if(stats) stats.IsDead = true;
             SceneManager.LoadScene("GameWonScene", LoadSceneMode.Additive);
             objHolder?.endGame();
