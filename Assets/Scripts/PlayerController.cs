@@ -286,6 +286,7 @@ public class PlayerController : MonoBehaviour
 
         // Ensure the normal swoosh timer can't turn it off while spinning.
         swooshTimer = 0f;
+        am?.PlayOneShot(am.EnemyHit, ObjectHolder.Player.transform.position);
 
         // Apply juggle visuals immediately
         ApplySlashVisuals_Juggle();

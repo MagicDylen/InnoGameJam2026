@@ -113,3 +113,31 @@ MonoBehaviour:
       Data3: 652086672
       Data4: -479925387
     Path: event:/Player/Player_Slash
+  EnemyHit:
+    Guid:
+      Data1: 2110960549
+      Data2: 1322055376
+      Data3: -471115644
+      Data4: -76845461
+    Path: event:/Enemies/Enemy_Damage
+  EnemyDeath:
+    Guid:
+      Data1: -892402621
+      Data2: 1125636151
+      Data3: 363048583
+      Data4: 388529233
+    Path: event:/Enemies/Enemy_Death
+  UiClick:
+    Guid:
+      Data1: -1843339227
+      Data2: 1094861632
+      Data3: -1523860587
+      Data4: -98758597
+    Path: event:/UI/UI_Click
+  UiSelect:
+    Guid:
+      Data1: 970782588
+      Data2: 1261696118
+      Data3: -980281411
+      Data4: -1808257912
+    Path: event:/UI/UI_Select
