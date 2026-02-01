@@ -43,7 +43,11 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
+<<<<<<< Updated upstream
   lastModified: 639055492720040736
+=======
+  lastModified: 639055448685764576
+>>>>>>> Stashed changes
   FileSizes:
   - Name: Desktop
     Value: 870
@@ -65,7 +69,11 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
+<<<<<<< Updated upstream
   lastModified: 639055492720030687
+=======
+  lastModified: 639055448685756409
+>>>>>>> Stashed changes
   FileSizes:
   - Name: Desktop
     Value: 1074
@@ -109,7 +117,11 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/MusicBank.bank
   Name: MusicBank
   StudioPath: bank:/MusicBank
+<<<<<<< Updated upstream
   lastModified: 639055492720240705
+=======
+  lastModified: 639055448685963773
+>>>>>>> Stashed changes
   FileSizes:
   - Name: Desktop
     Value: 1806592
@@ -138,7 +150,11 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -3326613938183618420}
   cacheVersion: 131858
+<<<<<<< Updated upstream
   cacheTime: 639055492720240705
+=======
+  cacheTime: 639055448685963773
+>>>>>>> Stashed changes
   SerializableEventsDict:
   - key: event:/Epic_Music
     index: 0
