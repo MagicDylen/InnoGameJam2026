@@ -205,7 +205,7 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
     /// Progress is computed relative to World Y=0 and the WinConditionTop's Y.
     /// progress01 = clamp(playerY / topY, 0..1).
     /// </summary>
-    private float GetProgress01()
+    public float GetProgress01()
     {
         float topY = winConditionTop.position.y;
         if (topY <= 0f)
