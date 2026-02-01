@@ -256,5 +256,4 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 0.903612, b: 0, a: 1}
   - {r: 1, g: 0.6136441, b: 0, a: 1}
-  - {r: 1, g: 0.2688679, b: 0.9030736, a: 1}
-  flashSpeed: 10
+  flashSpeed: 3
