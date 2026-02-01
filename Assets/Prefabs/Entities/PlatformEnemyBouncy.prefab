@@ -16,6 +16,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlatformEnemyBouncy
       objectReference: {fileID: 0}
+    - target: {fileID: 4942921680667150882, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+      propertyPath: deadSprite
+      value: 
+      objectReference: {fileID: -3833564560238509889, guid: 01dda4c12e59556419d2fa062fb5c9b1, type: 3}
+    - target: {fileID: 4942921680667150882, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+      propertyPath: aliveSprite
+      value: 
+      objectReference: {fileID: 624555039653065629, guid: 1acfa0d086a22ba4ab180eb2bb4dfc91, type: 3}
+    - target: {fileID: 4942921680667150882, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+      propertyPath: becomesSlashSpringOnDeath
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6178886660170449229, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
       propertyPath: m_Sprite
       value: 

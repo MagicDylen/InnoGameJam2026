@@ -1,8 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float fallingVelocity = 3f;
+    [SerializeField] private float jumpingVelocity = 3f;
+
+    [Header("Ground Snap (anti-tunneling)")]
+    [SerializeField] private float extraGroundCast = 0.25f;     // extra safety distance
+    [SerializeField] private float groundSnapSkin = 0.02f;       // how close before we snap
+    [SerializeField] private bool snapToGroundOnFastFall = true; // toggle
+
+
     [Header("Spinning State")]
     [Tooltip("If true, after hitting an enemy you enter Spinning: slash stays active until grounded.")]
     public bool enableSpinning = true;
@@ -25,8 +35,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump")]
     public float jumpVelocity = 13f;
-    public float coyoteTime = 0.10f;
     public float jumpBuffer = 0.08f;
+
+    [Tooltip("Coyote time: allows jump for brief moment after leaving ground.")]
+    public float coyoteTime = 0.15f;
 
     [Header("Double Jump")]
     [Tooltip("Total jumps allowed before touching ground again. 2 = double jump.")]
@@ -97,8 +109,8 @@ public class PlayerController : MonoBehaviour
     float moveInput;
     bool jumpHeld;
 
-    float coyoteCounter;
     float jumpBufferCounter;
+    float coyoteTimeCounter;
 
     int jumpsRemaining;
     bool wasGrounded;
@@ -122,6 +134,8 @@ public class PlayerController : MonoBehaviour
     public float HorizontalSpeed => Mathf.Abs(moveInput);
     public bool IsHurtLocked => hurtLockTimer > 0f;
 
+    AudioManager am;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -141,6 +155,11 @@ public class PlayerController : MonoBehaviour
         if (isDead())
             return;
 
+        if(!am)
+        {
+            am = FindFirstObjectByType<AudioManager>();
+        }
+
         if (!IsHurtLocked)
         {
             moveInput = Input.GetAxisRaw("Horizontal");
@@ -158,11 +177,6 @@ public class PlayerController : MonoBehaviour
         jumpHeld = Input.GetButton("Jump");
         jumpBufferCounter -= Time.deltaTime;
 
-        if (grounded)
-            coyoteCounter = coyoteTime;
-        else
-            coyoteCounter -= Time.deltaTime;
-
         UpdateFacing();
     }
 
@@ -175,8 +189,20 @@ public class PlayerController : MonoBehaviour
             hurtLockTimer -= Time.fixedDeltaTime;
 
         UpdateGroundInfo();
+        SnapToGroundIfNeeded();
 
-        if (grounded && !wasGrounded)
+
+        // Update coyote time: if grounded, reset counter; if airborne, count down
+        if (grounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.fixedDeltaTime;
+        }
+
+        if (grounded && !wasGrounded && rb.linearVelocity.y <= fallingVelocity)
         {
             jumpsRemaining = Mathf.Max(1, maxJumps);
 
@@ -208,22 +234,22 @@ public class PlayerController : MonoBehaviour
 
         if (allowJump && jumpBufferCounter > 0f)
         {
-            bool canGroundJump = grounded && v.y <= 0f;
+            bool canGroundJump = coyoteTimeCounter > 0f && v.y <= jumpingVelocity;
             bool canAirJump = !grounded && jumpsRemaining > 0;
 
             if (canGroundJump || canAirJump)
             {
                 bool isSecondJump = (!canGroundJump && jumpsRemaining == 1 && maxJumps >= 2);
 
-                if (v.y < 0f) v.y = 0f;
                 v.y = jumpVelocity;
 
                 jumpsRemaining = Mathf.Max(0, jumpsRemaining - 1);
-
                 jumpBufferCounter = 0f;
-                coyoteCounter = 0f;
+                coyoteTimeCounter = 0f; // Consume coyote time on jump
 
                 didJumpThisStep = true;
+
+                am?.PlayOneShot(am.PlayerJump, ObjectHolder.Player.transform.position);
 
                 if (isSecondJump)
                     TriggerSecondJumpSwoosh();
@@ -284,6 +310,7 @@ public class PlayerController : MonoBehaviour
 
         // Ensure the normal swoosh timer can't turn it off while spinning.
         swooshTimer = 0f;
+        am?.PlayOneShot(am.EnemyHit, ObjectHolder.Player.transform.position);
 
         // Apply juggle visuals immediately
         ApplySlashVisuals_Juggle();
@@ -338,6 +365,9 @@ public class PlayerController : MonoBehaviour
             throw new System.Exception($"{nameof(PlayerController)}: normalPlayerSpriteRenderer is not assigned (drag your normal visuals SpriteRenderer into the Inspector).");
 
         CacheSlashDefaultsOrThrow();
+
+        am?.PlayOneShot(am.PlayerSlash, ObjectHolder.Player.transform.position);
+
 
         swooshTimer = swooshDuration;
         secondJumpSwooshObject.SetActive(true);
@@ -472,13 +502,20 @@ public class PlayerController : MonoBehaviour
         Transform originT = springOrigin ? springOrigin : transform;
         Vector2 origin = originT.position;
 
+        // Predictive cast length to prevent tunneling:
+        // How far could we move down this physics step?
+        float downSpeed = Mathf.Max(0f, -rb.linearVelocity.y);
+        float predictedFall = downSpeed * Time.fixedDeltaTime;
+
+        float castLength = Mathf.Max(rayLength, targetHeight + predictedFall + extraGroundCast);
+
         Vector2 oL = origin + Vector2.left * raySpacing;
         Vector2 oC = origin;
         Vector2 oR = origin + Vector2.right * raySpacing;
 
-        RaycastHit2D hL = Physics2D.Raycast(oL, Vector2.down, rayLength, groundMask);
-        RaycastHit2D hC = Physics2D.Raycast(oC, Vector2.down, rayLength, groundMask);
-        RaycastHit2D hR = Physics2D.Raycast(oR, Vector2.down, rayLength, groundMask);
+        RaycastHit2D hL = Physics2D.Raycast(oL, Vector2.down, castLength, groundMask);
+        RaycastHit2D hC = Physics2D.Raycast(oC, Vector2.down, castLength, groundMask);
+        RaycastHit2D hR = Physics2D.Raycast(oR, Vector2.down, castLength, groundMask);
 
         groundHit = default;
         float bestDist = float.PositiveInfinity;
@@ -487,9 +524,36 @@ public class PlayerController : MonoBehaviour
         if (hC.collider && hC.distance < bestDist) { bestDist = hC.distance; groundHit = hC; }
         if (hR.collider && hR.distance < bestDist) { bestDist = hR.distance; groundHit = hR; }
 
-        grounded = groundHit.collider != null && bestDist <= rayLength;
+        grounded = groundHit.collider != null && bestDist <= castLength;
         groundDistance = grounded ? bestDist : float.PositiveInfinity;
     }
+
+    void SnapToGroundIfNeeded()
+    {
+        if (!snapToGroundOnFastFall) return;
+        if (!groundHit.collider) return;
+
+        // Only snap while moving downward
+        if (rb.linearVelocity.y >= 0f) return;
+
+        // If we're close enough to desired hover height, snap up and zero Y
+        float snapThreshold = targetHeight + groundSnapSkin;
+        if (groundDistance <= snapThreshold)
+        {
+            // Move the body up so the spring origin sits at targetHeight above ground
+            float correction = (targetHeight - groundDistance);
+            rb.position = rb.position + Vector2.up * correction;
+
+            Vector2 v = rb.linearVelocity;
+            v.y = 0f;
+            rb.linearVelocity = v;
+
+            grounded = true;
+            groundDistance = targetHeight;
+        }
+    }
+
+
 
     void ApplySpringFeet()
     {
