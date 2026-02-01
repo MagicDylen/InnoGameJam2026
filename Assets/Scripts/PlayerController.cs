@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float fallingVelocity = 3f;
+
     [Header("Spinning State")]
     [Tooltip("If true, after hitting an enemy you enter Spinning: slash stays active until grounded.")]
     public bool enableSpinning = true;
@@ -25,7 +28,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump")]
     public float jumpVelocity = 13f;
-    public float coyoteTime = 0.10f;
     public float jumpBuffer = 0.08f;
 
     [Header("Double Jump")]
@@ -97,7 +99,6 @@ public class PlayerController : MonoBehaviour
     float moveInput;
     bool jumpHeld;
 
-    float coyoteCounter;
     float jumpBufferCounter;
 
     int jumpsRemaining;
@@ -158,11 +159,6 @@ public class PlayerController : MonoBehaviour
         jumpHeld = Input.GetButton("Jump");
         jumpBufferCounter -= Time.deltaTime;
 
-        if (grounded)
-            coyoteCounter = coyoteTime;
-        else
-            coyoteCounter -= Time.deltaTime;
-
         UpdateFacing();
     }
 
@@ -176,7 +172,7 @@ public class PlayerController : MonoBehaviour
 
         UpdateGroundInfo();
 
-        if (grounded && !wasGrounded)
+        if (grounded && !wasGrounded && rb.linearVelocity.y <= fallingVelocity)
         {
             jumpsRemaining = Mathf.Max(1, maxJumps);
 
@@ -215,13 +211,10 @@ public class PlayerController : MonoBehaviour
             {
                 bool isSecondJump = (!canGroundJump && jumpsRemaining == 1 && maxJumps >= 2);
 
-                if (v.y < 0f) v.y = 0f;
                 v.y = jumpVelocity;
 
                 jumpsRemaining = Mathf.Max(0, jumpsRemaining - 1);
-
                 jumpBufferCounter = 0f;
-                coyoteCounter = 0f;
 
                 didJumpThisStep = true;
 
