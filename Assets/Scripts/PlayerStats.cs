@@ -47,13 +47,10 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float hitstopTimeScale = 0f;
 
     private Rigidbody2D rb;
-    private Coroutine hitstopRoutine;
-    private float baseFixedDeltaTime;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        baseFixedDeltaTime = Time.fixedDeltaTime;
     }
 
     void Update()
@@ -155,29 +152,9 @@ public class PlayerStats : MonoBehaviour
         if (hitstopDuration <= 0f)
             return;
 
-        if (hitstopRoutine != null)
-            StopCoroutine(hitstopRoutine);
-
-        hitstopRoutine = StartCoroutine(HitstopCoroutine(hitstopDuration));
+        HitStop.Do(hitstopDuration, hitstopTimeScale);
     }
 
-    private IEnumerator HitstopCoroutine(float durationRealtime)
-    {
-        float prevScale = Time.timeScale;
-        float prevFixed = Time.fixedDeltaTime;
-
-        Time.timeScale = hitstopTimeScale;
-        // Keep physics step consistent with new timescale (even if 0, it doesn’t matter)
-        Time.fixedDeltaTime = baseFixedDeltaTime * Time.timeScale;
-
-        // Wait in real time so we unfreeze even while timeScale = 0
-        yield return new WaitForSecondsRealtime(durationRealtime);
-
-        Time.timeScale = prevScale;
-        Time.fixedDeltaTime = prevFixed;
-
-        hitstopRoutine = null;
-    }
 
     public void IncreaseDamage()
     {

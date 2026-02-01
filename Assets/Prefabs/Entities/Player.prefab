@@ -375,9 +375,9 @@ MonoBehaviour:
   flipDeadzone: 0.01
   springOrigin: {fileID: 1052555374638149888}
   raySpacing: 0.64
-  rayLength: 0.61
+  rayLength: 0.8
   targetHeight: 0.7
-  springStrength: 95
+  springStrength: 150
   springDamping: 18
   maxUpwardForce: 250
   stickDownForce: 15
@@ -410,7 +410,7 @@ MonoBehaviour:
   damageCooldown: 1
   knockbackStrength: 15
   hurtLockDuration: 0.5
-  verticalKnockbackFactor: 0
+  cancelMomentumOnHit: 1
   damageParticlesPrefab: {fileID: 3745456296972243897, guid: 1d9dd39fef9a8a84c84b450d7a0729cd, type: 3}
   damageParticlesOffset: {x: 0, y: 0.3, z: 0}
   hitstopDuration: 0.3
