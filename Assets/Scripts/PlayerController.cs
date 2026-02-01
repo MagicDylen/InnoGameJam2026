@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float fallingVelocity = 3f;
+    [SerializeField] private float jumpingVelocity = 3f;
 
     [Header("Spinning State")]
     [Tooltip("If true, after hitting an enemy you enter Spinning: slash stays active until grounded.")]
@@ -29,6 +30,9 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     public float jumpVelocity = 13f;
     public float jumpBuffer = 0.08f;
+
+    [Tooltip("Coyote time: allows jump for brief moment after leaving ground.")]
+    public float coyoteTime = 0.15f;
 
     [Header("Double Jump")]
     [Tooltip("Total jumps allowed before touching ground again. 2 = double jump.")]
@@ -100,6 +104,7 @@ public class PlayerController : MonoBehaviour
     bool jumpHeld;
 
     float jumpBufferCounter;
+    float coyoteTimeCounter;
 
     int jumpsRemaining;
     bool wasGrounded;
@@ -179,6 +184,16 @@ public class PlayerController : MonoBehaviour
 
         UpdateGroundInfo();
 
+        // Update coyote time: if grounded, reset counter; if airborne, count down
+        if (grounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.fixedDeltaTime;
+        }
+
         if (grounded && !wasGrounded && rb.linearVelocity.y <= fallingVelocity)
         {
             jumpsRemaining = Mathf.Max(1, maxJumps);
@@ -211,7 +226,7 @@ public class PlayerController : MonoBehaviour
 
         if (allowJump && jumpBufferCounter > 0f)
         {
-            bool canGroundJump = grounded && v.y <= 0f;
+            bool canGroundJump = coyoteTimeCounter > 0f && v.y <= jumpingVelocity;
             bool canAirJump = !grounded && jumpsRemaining > 0;
 
             if (canGroundJump || canAirJump)
@@ -222,12 +237,13 @@ public class PlayerController : MonoBehaviour
 
                 jumpsRemaining = Mathf.Max(0, jumpsRemaining - 1);
                 jumpBufferCounter = 0f;
+                coyoteTimeCounter = 0f; // Consume coyote time on jump
 
                 didJumpThisStep = true;
-                
+
                 am?.PlayOneShot(am.PlayerJump, ObjectHolder.Player.transform.position);
 
-                if (isSecondJump) 
+                if (isSecondJump)
                     TriggerSecondJumpSwoosh();
             }
         }
