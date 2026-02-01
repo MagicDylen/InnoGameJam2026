@@ -52,13 +52,13 @@ MonoBehaviour:
       Data2: 1160515270
       Data3: -1772207943
       Data4: 783153198
-    Path: event:/Epic_Music
+    Path: event:/Epic_Music/Epic_Music
   Event: 
   EventPlayTrigger: 11
   EventStopTrigger: 12
   AllowFadeout: 1
   TriggerOnce: 1
-  Preload: 0
+  Preload: 1
   NonRigidbodyVelocity: 0
   Params:
   - Name: Music
@@ -78,3 +78,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9651fd37567f1514098a502c4115612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  PlayerDeath:
+    Guid:
+      Data1: -632974277
+      Data2: 1128991099
+      Data3: -1045342544
+      Data4: 1067801379
+    Path: event:/Player/Player_Death
+  PlayerJump:
+    Guid:
+      Data1: 589103793
+      Data2: 1311466190
+      Data3: 1615543978
+      Data4: 727708716
+    Path: event:/Player/Player_Jump
+  PlayerDamage:
+    Guid:
+      Data1: 1098274874
+      Data2: 1148579035
+      Data3: -2103407230
+      Data4: 2076351399
+    Path: event:/Player/Player_Damage
+  PlayerPotion:
+    Guid:
+      Data1: -918372614
+      Data2: 1183898980
+      Data3: -1388652139
+      Data4: 1625212377
+    Path: event:/Player/Player_Potion
+  PlayerSlash:
+    Guid:
+      Data1: 95535552
+      Data2: 1216900959
+      Data3: 652086672
+      Data4: -479925387
+    Path: event:/Player/Player_Slash
