@@ -26,9 +26,9 @@ Transform:
   m_GameObject: {fileID: 1960000927907488811}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0.00000011921, z: 0}
+  m_LocalScale: {x: 0.35450798, y: 0.35450798, z: 0.35450798}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9175110872292997500}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 8396970846225137241, guid: 27b1583f48b33e04eb19530ea91f02ef, type: 3}
+  m_Sprite: {fileID: -9062118492572211291, guid: 5038bedc2c4e21447a1379b9621fd5f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -193,6 +193,7 @@ MonoBehaviour:
   deathParticlesPrefab: {fileID: 8647349328802988228, guid: b6d67264ec64bfe4b8fff976677cbbec, type: 3}
   hitStopDuration: 0.2
   hitStopTimeScale: 0.1
+  isDead: 0
 --- !u!50 &1360176554208000036
 Rigidbody2D:
   serializedVersion: 5
