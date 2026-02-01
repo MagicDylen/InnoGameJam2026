@@ -1,5 +1,113 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9018677128753445930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies/Mask_Falling
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Enemies/Mask_Falling
+  Guid:
+    Data1: -1898952635
+    Data2: 1328335000
+    Data3: -824943945
+    Data4: -1855446900
+  Banks:
+  - {fileID: -685759454525700835}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8965918868194753087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies/Mask_Stick
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Enemies/Mask_Stick
+  Guid:
+    Data1: -1045945188
+    Data2: 1279820922
+    Data3: -1201663595
+    Data4: 2100379529
+  Banks:
+  - {fileID: -685759454525700835}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8831646798991770853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Player_Death
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Player/Player_Death
+  Guid:
+    Data1: -632974277
+    Data2: 1128991099
+    Data3: -1045342544
+    Data4: 1067801379
+  Banks:
+  - {fileID: 4747466516621853631}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-8018877033961103740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies/Mask_Pierce
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Enemies/Mask_Pierce
+  Guid:
+    Data1: 241767359
+    Data2: 1149170908
+    Data3: -1584263502
+    Data4: -1393825042
+  Banks:
+  - {fileID: -685759454525700835}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7471221341951552541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,13 +123,67 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639055483179224426
+  lastModified: 639055530354894644
   FileSizes:
   - Name: Desktop
-    Value: 870
+    Value: 1660
   - Name: SFX
-    Value: 870
+    Value: 1660
   Exists: 1
+--- !u!114 &-5095505728934923211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/UI_Select
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/UI/UI_Select
+  Guid:
+    Data1: 970782588
+    Data2: 1261696118
+    Data3: -980281411
+    Data4: -1808257912
+  Banks:
+  - {fileID: 4764273010209320552}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4337910665229364699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies/Enemy_Damage
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Enemies/Enemy_Damage
+  Guid:
+    Data1: 2110960549
+    Data2: 1322055376
+    Data3: -471115644
+    Data4: -76845461
+  Banks:
+  - {fileID: -685759454525700835}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-4027926812128657729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37,12 +199,12 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/MusicBank.bank
   Name: MusicBank
   StudioPath: bank:/MusicBank
-  lastModified: 639055483179425910
+  lastModified: 639055530355146253
   FileSizes:
   - Name: Desktop
     Value: 1806592
   Exists: 1
---- !u!114 &-2053472287991299257
+--- !u!114 &-2412883390680781288
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -52,24 +214,97 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Epic_Music
+  m_Name: event:/Enemies/Mask_Drop
   m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Epic_Music
+  Path: event:/Enemies/Mask_Drop
   Guid:
-    Data1: 946758875
-    Data2: 1160515270
-    Data3: -1772207943
-    Data4: 783153198
+    Data1: -1419673579
+    Data2: 1327636653
+    Data3: 1342793376
+    Data4: 611554515
   Banks:
-  - {fileID: -4027926812128657729}
-  IsStream: 1
+  - {fileID: -685759454525700835}
+  IsStream: 0
   Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 6159403965460568273}
+  IsOneShot: 1
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 156097
+  Length: 0
+--- !u!114 &-1919295890295202257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies/Mask_Explode
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Enemies/Mask_Explode
+  Guid:
+    Data1: 1556399438
+    Data2: 1131875453
+    Data3: 1637272464
+    Data4: -147812334
+  Banks:
+  - {fileID: -685759454525700835}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-685759454525700835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SFX_Enemies.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Audio/Desktop/SFX_Enemies.bank
+  Name: SFX_Enemies
+  StudioPath: bank:/SFX_Enemies
+  lastModified: 639055530355264068
+  FileSizes:
+  - Name: Desktop
+    Value: 74528
+  Exists: 1
+--- !u!114 &-323683590217789700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Player_Slash
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Player/Player_Slash
+  Guid:
+    Data1: 95535552
+    Data2: 1216900959
+    Data3: 652086672
+    Data4: -479925387
+  Banks:
+  - {fileID: 4747466516621853631}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,19 +321,213 @@ MonoBehaviour:
   - {fileID: -7471221341951552541}
   - {fileID: 6480530483075726592}
   - {fileID: -4027926812128657729}
+  - {fileID: -685759454525700835}
+  - {fileID: 4747466516621853631}
+  - {fileID: 4764273010209320552}
   EditorEvents:
-  - {fileID: -2053472287991299257}
+  - {fileID: -8018877033961103740}
+  - {fileID: -2412883390680781288}
+  - {fileID: -8965918868194753087}
+  - {fileID: -1919295890295202257}
+  - {fileID: -4337910665229364699}
+  - {fileID: -9018677128753445930}
+  - {fileID: 7713586582033730463}
+  - {fileID: 726196741421169198}
+  - {fileID: 3186530732681324489}
+  - {fileID: -323683590217789700}
+  - {fileID: -8831646798991770853}
+  - {fileID: 1625964398054961259}
+  - {fileID: 876517886710461991}
+  - {fileID: 6539141112907944614}
+  - {fileID: -5095505728934923211}
   EditorParameters: []
   MasterBanks:
   - {fileID: 6480530483075726592}
   StringsBanks:
   - {fileID: -7471221341951552541}
   cacheVersion: 131858
-  cacheTime: 639055483179425910
+  cacheTime: 639055530355481346
   SerializableEventsDict:
-  - key: event:/Epic_Music
+  - key: event:/Enemies/Mask_Pierce
     index: 0
---- !u!114 &6159403965460568273
+  - key: event:/Enemies/Mask_Drop
+    index: 1
+  - key: event:/Enemies/Mask_Stick
+    index: 2
+  - key: event:/Enemies/Mask_Explode
+    index: 3
+  - key: event:/Enemies/Enemy_Damage
+    index: 4
+  - key: event:/Enemies/Mask_Falling
+    index: 5
+  - key: event:/Enemies/Enemy_Death
+    index: 6
+  - key: event:/Player/Player_Damage
+    index: 7
+  - key: event:/Player/Player_Jump
+    index: 8
+  - key: event:/Player/Player_Slash
+    index: 9
+  - key: event:/Player/Player_Death
+    index: 10
+  - key: event:/Player/Player_Potion
+    index: 11
+  - key: event:/Epic_Music/Epic_Music
+    index: 12
+  - key: event:/UI/UI_Click
+    index: 13
+  - key: event:/UI/UI_Select
+    index: 14
+--- !u!114 &726196741421169198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Player_Damage
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Player/Player_Damage
+  Guid:
+    Data1: 1098274874
+    Data2: 1148579035
+    Data3: -2103407230
+    Data4: 2076351399
+  Banks:
+  - {fileID: 4747466516621853631}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &876517886710461991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Epic_Music/Epic_Music
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Epic_Music/Epic_Music
+  Guid:
+    Data1: 946758875
+    Data2: 1160515270
+    Data3: -1772207943
+    Data4: 783153198
+  Banks:
+  - {fileID: -4027926812128657729}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 5246802329055329342}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 156097
+--- !u!114 &1625964398054961259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Player_Potion
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Player/Player_Potion
+  Guid:
+    Data1: -918372614
+    Data2: 1183898980
+    Data3: -1388652139
+    Data4: 1625212377
+  Banks:
+  - {fileID: 4747466516621853631}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3186530732681324489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Player_Jump
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Player/Player_Jump
+  Guid:
+    Data1: 589103793
+    Data2: 1311466190
+    Data3: 1615543978
+    Data4: 727708716
+  Banks:
+  - {fileID: 4747466516621853631}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4747466516621853631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SFX_Player.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Audio/Desktop/SFX_Player.bank
+  Name: SFX_Player
+  StudioPath: bank:/SFX_Player
+  lastModified: 639055530355386950
+  FileSizes:
+  - Name: Desktop
+    Value: 67808
+  Exists: 1
+--- !u!114 &4764273010209320552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SFX_UI.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: Assets/Audio/Desktop/SFX_UI.bank
+  Name: SFX_UI
+  StudioPath: bank:/SFX_UI
+  lastModified: 639055530355481346
+  FileSizes:
+  - Name: Desktop
+    Value: 8608
+  Exists: 1
+--- !u!114 &5246802329055329342
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,3 +571,57 @@ MonoBehaviour:
   - Name: Desktop
     Value: 1074
   Exists: 1
+--- !u!114 &6539141112907944614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/UI_Click
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/UI/UI_Click
+  Guid:
+    Data1: -1843339227
+    Data2: 1094861632
+    Data3: -1523860587
+    Data4: -98758597
+  Banks:
+  - {fileID: 4764273010209320552}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7713586582033730463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies/Enemy_Death
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Enemies/Enemy_Death
+  Guid:
+    Data1: -892402621
+    Data2: 1125636151
+    Data3: 363048583
+    Data4: 388529233
+  Banks:
+  - {fileID: -685759454525700835}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0

@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class PlatformEnemy : MonoBehaviour
 {
+    [SerializeField] private bool isImmortal = false;
+
+    // NEW: if true, after death it keeps resetting slash (springy corpse)
+    [SerializeField] private bool becomesSlashSpringOnDeath = false;
+
     [Header("Movement")]
     [SerializeField] private float fallSpeed = 1f;
 
@@ -14,7 +19,7 @@ public class PlatformEnemy : MonoBehaviour
     public Sprite deadSprite;
     [SerializeField] private Sprite aliveSprite;
     private SpriteRenderer _spriteRenderer;
-    
+
     [Header("Visual Feedback")]
     [SerializeField] private SpriteRenderer spriteToTint; // assign in inspector
     [SerializeField] private Color deadTint = new Color(0.6f, 0.9f, 0.6f, 1f);
@@ -32,6 +37,7 @@ public class PlatformEnemy : MonoBehaviour
     {
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
+
     private void Awake()
     {
         if (damageTrigger == null)
@@ -54,15 +60,16 @@ public class PlatformEnemy : MonoBehaviour
 
     public void Kill()
     {
+        if (isImmortal) return;
         if (isDead) return;
+
         isDead = true;
 
         // Stop doing damage
         damageTrigger.enabled = false;
 
-        // Visual feedback: tint to indicate "standable now"
+        // Visuals
         spriteToTint.color = deadTint;
-        Debug.Log("deadSprite is:" + deadSprite);
         _spriteRenderer.sprite = deadSprite;
 
         // Particles
@@ -88,7 +95,6 @@ public class PlatformEnemy : MonoBehaviour
         stats.TakeDamage(damageAmount, transform.position);
     }
 
-    // Optional helper if you ever want to reset this enemy (pooling, etc.)
     public void Revive()
     {
         isDead = false;
@@ -96,5 +102,11 @@ public class PlatformEnemy : MonoBehaviour
 
         if (hasOriginalTint)
             spriteToTint.color = originalTint;
+    }
+
+    // NEW: tiny helper for Slash
+    public bool ShouldResetSlashOnHit()
+    {
+        return (!isDead && !isImmortal) || becomesSlashSpringOnDeath;
     }
 }

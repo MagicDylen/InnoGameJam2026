@@ -4,8 +4,9 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        Debug.Log("Player wanna play!");
-        // SceneManager.LoadScene("StartingScene");
+        SceneManager.LoadScene("GameScene");
+        var am = FindFirstObjectByType<AudioManager>();
+        am?.PlayOneShot(am.UiClick, Vector3.zero);
     }
     public void OpenSettings()
     {
@@ -15,6 +16,8 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Player super bored now. Get me out of here!");
+        var am = FindFirstObjectByType<AudioManager>();
+        am?.PlayOneShot(am.UiSelect, Vector3.zero);
         Application.Quit(); 
     }
 }
