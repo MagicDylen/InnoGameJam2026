@@ -123,7 +123,7 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639055538182079726
+  lastModified: 639055528746305830
   FileSizes:
   - Name: Desktop
     Value: 1660
@@ -199,10 +199,10 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/MusicBank.bank
   Name: MusicBank
   StudioPath: bank:/MusicBank
-  lastModified: 639055538182356028
+  lastModified: 639055603705069813
   FileSizes:
   - Name: Desktop
-    Value: 1806592
+    Value: 1957856
   Exists: 1
 --- !u!114 &-2412883390680781288
 MonoBehaviour:
@@ -273,7 +273,7 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/SFX_Enemies.bank
   Name: SFX_Enemies
   StudioPath: bank:/SFX_Enemies
-  lastModified: 639055538182459171
+  lastModified: 639055603705246088
   FileSizes:
   - Name: Desktop
     Value: 74528
@@ -346,7 +346,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -7471221341951552541}
   cacheVersion: 131858
-  cacheTime: 639055538182738361
+  cacheTime: 639055603705246088
   SerializableEventsDict:
   - key: event:/Enemies/Mask_Pierce
     index: 0
@@ -432,7 +432,7 @@ MonoBehaviour:
   - {fileID: 5246802329055329342}
   MinDistance: 1
   MaxDistance: 20
-  Length: 156097
+  Length: 169756
 --- !u!114 &1625964398054961259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,7 +502,7 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/SFX_Player.bank
   Name: SFX_Player
   StudioPath: bank:/SFX_Player
-  lastModified: 639055538182585238
+  lastModified: 639055528746480270
   FileSizes:
   - Name: Desktop
     Value: 67808
@@ -522,7 +522,7 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/SFX_UI.bank
   Name: SFX_UI
   StudioPath: bank:/SFX_UI
-  lastModified: 639055538182738361
+  lastModified: 639055527141641122
   FileSizes:
   - Name: Desktop
     Value: 8608
@@ -566,7 +566,7 @@ MonoBehaviour:
   Path: Assets/Audio/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639055492720030687
+  lastModified: 639055528746299717
   FileSizes:
   - Name: Desktop
     Value: 1074

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
     public PlayerController controller;
 
     public float fallThreshold = -1f; // prevents jitter at apex

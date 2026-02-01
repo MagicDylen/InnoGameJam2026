@@ -102,10 +102,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 25
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -126,10 +126,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -465,28 +465,6 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Golden_13
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 7824
-        height: 909
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 249, z: 0, w: 209}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 59ca67b7cafd16847a1a573da3c2e6d4
-      internalID: -1025402212
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -508,7 +486,6 @@ TextureImporter:
       Golden_10: -1248917237974243955
       Golden_11: -120908244128218237
       Golden_12: -8126056661305790763
-      Golden_13: -1025402212
       Golden_2: 1296940682961775170
       Golden_3: 3447542712187977709
       Golden_4: -8795430971609869970
