@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 3e848c2d78270ed4a852276517fdfe41
+guid: 7340aa67dcc63ad4b92f4193c7fa6994
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7823507454722530779
-    second: knight_up_0
+      213: -1013798035419429110
+    second: knight_up (2)_0
+  - first:
+      213: 6820922034786560726
+    second: knight_up (2)_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,23 +129,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: knight_up_0
+      name: knight_up (2)_0
       rect:
         serializedVersion: 2
-        x: 389
-        y: 43
-        width: 1473
-        height: 1278
+        x: 669
+        y: 350
+        width: 1242
+        height: 1115
       alignment: 9
-      pivot: {x: 0.8053984, y: 0.5131999}
+      pivot: {x: 0.71052843, y: 0.49495697}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 522a4afab615d6390800000000000000
-      internalID: -7823507454722530779
+      spriteID: a0706d0ee044ee1f0800000000000000
+      internalID: -1013798035419429110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: knight_up (2)_1
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 279
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6da661ca378c8ae50800000000000000
+      internalID: 6820922034786560726
       vertices: []
       indices: 
       edges: []
@@ -151,7 +176,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: fbdfe9cca8dd9754781103b7ec60fcbd
+    spriteID: f20b4f1e326f8ed49b6f0717b479c8af
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +186,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      knight_up_0: -7823507454722530779
+      knight_up (2)_0: -1013798035419429110
+      knight_up (2)_1: 6820922034786560726
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
