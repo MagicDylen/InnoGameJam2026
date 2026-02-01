@@ -19,6 +19,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public FMODUnity.EventReference EnemyHit;
     [SerializeField] public FMODUnity.EventReference EnemyDeath;
 
+    [Header("UI Sounds")]
+    [SerializeField] public FMODUnity.EventReference UiClick;
+    [SerializeField] public FMODUnity.EventReference UiSelect;
+
     void Awake()
     {
         emitter = GetComponent<FMODUnity.StudioEventEmitter>();
