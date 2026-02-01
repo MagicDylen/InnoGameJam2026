@@ -59,18 +59,18 @@ MonoBehaviour:
   - type: 0
     weight: 70
     tier1Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
-    tier2Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
-    tier3Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+    tier2Prefab: {fileID: 848154947987351617, guid: 57399e311c7546342874dde1db6da217, type: 3}
+    tier3Prefab: {fileID: 7046896382385237211, guid: 8b53e0eeeb056c748821a7505eb6399f, type: 3}
   - type: 1
     weight: 20
     tier1Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
-    tier2Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
-    tier3Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+    tier2Prefab: {fileID: 848154947987351617, guid: 57399e311c7546342874dde1db6da217, type: 3}
+    tier3Prefab: {fileID: 7046896382385237211, guid: 8b53e0eeeb056c748821a7505eb6399f, type: 3}
   - type: 2
     weight: 10
     tier1Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
-    tier2Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
-    tier3Prefab: {fileID: 4432868779276160143, guid: 7e464adc1bd19ba4d9c3e5349392c116, type: 3}
+    tier2Prefab: {fileID: 848154947987351617, guid: 57399e311c7546342874dde1db6da217, type: 3}
+    tier3Prefab: {fileID: 7046896382385237211, guid: 8b53e0eeeb056c748821a7505eb6399f, type: 3}
   isSpawning: 1
 --- !u!114 &4199481803135915031
 MonoBehaviour:
