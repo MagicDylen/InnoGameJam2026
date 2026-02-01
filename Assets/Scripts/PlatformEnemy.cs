@@ -10,7 +10,10 @@ public class PlatformEnemy : MonoBehaviour
     [SerializeField] private Collider2D damageTrigger; // assign the child trigger collider
 
     [Header("Graphics")]
-    [SerializeField] private GameObject vfxPrefab;
+    public GameObject vfxPrefab;
+    public Sprite deadSprite;
+    [SerializeField] private Sprite aliveSprite;
+    private SpriteRenderer _spriteRenderer;
     
     [Header("Visual Feedback")]
     [SerializeField] private SpriteRenderer spriteToTint; // assign in inspector
@@ -25,6 +28,10 @@ public class PlatformEnemy : MonoBehaviour
     private Color originalTint;
     private bool hasOriginalTint;
 
+    private void Start()
+    {
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
     private void Awake()
     {
         if (damageTrigger == null)
@@ -55,6 +62,8 @@ public class PlatformEnemy : MonoBehaviour
 
         // Visual feedback: tint to indicate "standable now"
         spriteToTint.color = deadTint;
+        Debug.Log("deadSprite is:" + deadSprite);
+        _spriteRenderer.sprite = deadSprite;
 
         // Particles
         if (deathParticlesPrefab != null)
