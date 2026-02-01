@@ -18,7 +18,7 @@ public class PlatformEnemy : MonoBehaviour
     [SerializeField] private float hitStopDuration = 0.06f;
     [SerializeField] private float hitStopTimeScale = 0.05f;
 
-    private bool isDead;
+    public bool isDead;
     private Color originalTint;
     private bool hasOriginalTint;
 

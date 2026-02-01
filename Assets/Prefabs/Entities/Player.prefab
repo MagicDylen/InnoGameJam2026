@@ -358,6 +358,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24dbe074b40b4b54fbcec43d57e3ff90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  enableSpinning: 1
+  spinUpBoost: 10
+  spinUpBoostAdd: 6
+  spinMaxUpVelocity: 22
   moveSpeed: 30
   maxHorizontalSpeed: 7
   jumpVelocity: 7
@@ -370,8 +374,8 @@ MonoBehaviour:
   flipDeadzone: 0.01
   normalPlayerSpriteRenderer: {fileID: 1541553204042242021}
   springOrigin: {fileID: 1052555374638149888}
-  raySpacing: 0.64
-  rayLength: 0.8
+  raySpacing: 0.37
+  rayLength: 0.38
   targetHeight: 0.7
   springStrength: 150
   springDamping: 18
@@ -409,7 +413,7 @@ MonoBehaviour:
   DamagePickUpAdd: 0.2
   SpeeedPickUpAdd: 0.1
   damageCooldown: 1
-  knockbackStrength: 15
+  knockbackStrength: 7
   hurtLockDuration: 0.5
   cancelMomentumOnHit: 1
   damageParticlesPrefab: {fileID: 3745456296972243897, guid: 1d9dd39fef9a8a84c84b450d7a0729cd, type: 3}

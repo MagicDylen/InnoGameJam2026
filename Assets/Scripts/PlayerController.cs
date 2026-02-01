@@ -3,6 +3,25 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Spinning State")]
+    [Tooltip("If true, after hitting an enemy you enter Spinning: slash stays active until grounded.")]
+    public bool enableSpinning = true;
+
+    [Tooltip("Upward velocity applied when you hit an enemy and enter/refresh Spinning.")]
+    public float spinUpBoost = 10f;
+
+    [Tooltip("Extra upward velocity added per hit while already spinning (optional; set 0 to just set to spinUpBoost).")]
+    public float spinUpBoostAdd = 6f;
+
+    [Tooltip("Clamp the maximum upward velocity while chaining hits.")]
+    public float spinMaxUpVelocity = 22f;
+
+    // State
+    bool isSpinning;
+    public bool IsSpinning => isSpinning;
+
+
+
     [Header("Movement")]
     public float moveSpeed = 21.3f;
     public float maxHorizontalSpeed = 21.3f; // clamp ONLY X
@@ -149,8 +168,14 @@ public class PlayerController : MonoBehaviour
         if (grounded && !wasGrounded)
         {
             jumpsRemaining = Mathf.Max(1, maxJumps);
-            StopSwoosh();
+
+            // Landing ends Spinning and any slash visuals.
+            if (isSpinning)
+                EndSpin();
+            else
+                StopSwoosh();
         }
+
         wasGrounded = grounded;
 
         Vector2 v = rb.linearVelocity;
@@ -216,6 +241,77 @@ public class PlayerController : MonoBehaviour
         UpdateSwooshTimer();
     }
 
+    /// <summary>
+    /// Call this when the player's slash/swoosh successfully hits an enemy.
+    /// Starts Spinning if not already spinning, keeps slash active until grounded,
+    /// and gives an upward momentum boost. Re-hits refresh the boost.
+    /// </summary>
+    public void NotifySlashHitEnemy()
+    {
+        if (!enableSpinning)
+            return;
+
+        // If you're hurt-locked, you can decide whether spin should be allowed.
+        // Current behavior: allow it (feels juicy), but you can block it if desired.
+        // if (IsHurtLocked) return;
+
+        StartOrRefreshSpin();
+        ApplySpinBoost();
+    }
+
+    void StartOrRefreshSpin()
+    {
+        if (secondJumpSwooshObject == null)
+            throw new System.Exception($"{nameof(PlayerController)}: secondJumpSwooshObject is not assigned.");
+
+        if (normalPlayerSpriteRenderer == null)
+            throw new System.Exception($"{nameof(PlayerController)}: normalPlayerSpriteRenderer is not assigned (drag your normal visuals SpriteRenderer into the Inspector).");
+
+        isSpinning = true;
+
+        // Force slash/swoosh to remain on visually & mechanically.
+        if (!secondJumpSwooshObject.activeSelf)
+            secondJumpSwooshObject.SetActive(true);
+
+        SetNormalVisualsActive(false);
+
+        // Ensure the normal swoosh timer can't turn it off while spinning.
+        swooshTimer = 0f;
+    }
+
+    void ApplySpinBoost()
+    {
+        Vector2 v = rb.linearVelocity;
+
+        // Optional: if falling, cancel downwards first so the boost feels consistent.
+        if (v.y < 0f) v.y = 0f;
+
+        // Two styles:
+        // 1) "Set" style: v.y = max(v.y, spinUpBoost)
+        // 2) "Add" style: v.y += spinUpBoostAdd (with clamp)
+        //
+        // We do both: ensure at least spinUpBoost, then add extra per hit.
+        v.y = Mathf.Max(v.y, spinUpBoost);
+
+        if (spinUpBoostAdd > 0f)
+            v.y = Mathf.Min(v.y + spinUpBoostAdd, spinMaxUpVelocity);
+
+        rb.linearVelocity = v;
+    }
+
+    void EndSpin()
+    {
+        if (!isSpinning)
+            return;
+
+        isSpinning = false;
+
+        // Turn off swoosh and restore normal visuals.
+        StopSwoosh();
+    }
+
+
+
 
     public void ApplyKnockbackVelocity(Vector2 knockbackVelocity, float lockDuration = -1f, bool cancelMomentumOnHit = true)
     {
@@ -252,6 +348,9 @@ public class PlayerController : MonoBehaviour
 
     void UpdateSwooshTimer()
     {
+        if (isSpinning)
+            return; // spinning owns the swoosh lifetime
+
         if (swooshTimer <= 0f)
             return;
 
@@ -260,6 +359,7 @@ public class PlayerController : MonoBehaviour
         if (swooshTimer <= 0f)
             StopSwoosh();
     }
+
 
     void StopSwoosh()
     {
