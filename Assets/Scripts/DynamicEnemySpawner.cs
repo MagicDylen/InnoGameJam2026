@@ -6,6 +6,8 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
 {
     public enum EnemyType { Normal, Spikey, Explosive }
     public enum EnemyTier { Tier1 = 1, Tier2 = 2, Tier3 = 3 }
+    private float lastXSpwanPos = 0;
+
 
     [Serializable]
     public class TypeConfig
@@ -75,6 +77,10 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
     [Min(0f)]
     [SerializeField] private float horizontalRange = 10f;
 
+    [Tooltip("Spawns the next enemy a guaranteed distance from the last, so they are less clustered")]
+    [Min(0f)]
+    [SerializeField] private float minDistanceFromLastSpawn = 1f;
+
     [Header("Spawn Timing")]
     [SerializeField]
     private LevelCooldowns cooldowns = new LevelCooldowns
@@ -107,7 +113,7 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        // Try to auto-find in editor too (no throwing here — just log loudly).
+        // Try to auto-find in editor too (no throwing here ï¿½ just log loudly).
         try
         {
             AutoFindReferencesOrThrow();
@@ -180,10 +186,17 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
 
     private Vector3 GetSpawnPosition()
     {
-        Vector3 basePos = player.position + Vector3.up * heightBuffer;
+        Vector3 basePos = new Vector3(0, player.position.y, player.position.z) + Vector3.up * heightBuffer;
 
         float x = UnityEngine.Random.Range(-horizontalRange, horizontalRange);
         float z = UnityEngine.Random.Range(-horizontalRange, horizontalRange);
+
+        // check if too narrow to last spawn
+        if(x >= lastXSpwanPos - minDistanceFromLastSpawn && x <= lastXSpwanPos + minDistanceFromLastSpawn)
+        {
+            return GetSpawnPosition();
+        }
+        lastXSpwanPos = x;
 
         return basePos + new Vector3(x, 0f, z);
     }
