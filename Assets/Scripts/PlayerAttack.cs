@@ -30,6 +30,9 @@ public class PlayerAttack : MonoBehaviour
             transform.position + _offset,
             transform.rotation
         );
+        Debug.Log("Attacked");
+        var am = FindFirstObjectByType<AudioManager>();
+        am?.PlayOneShot(am.PlayerSlash, ObjectHolder.Player.transform.position);
 
         _attackCooldown.StartCooldown();
     }

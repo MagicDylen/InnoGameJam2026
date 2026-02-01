@@ -81,6 +81,8 @@ public class PlayerStats : MonoBehaviour
     {
         if (IsDead) return;
         TotalHealth = math.min(MaxHealth, TotalHealth + amount);
+        var am = FindFirstObjectByType<AudioManager>();
+        am?.PlayOneShot(am.PlayerPotion, ObjectHolder.Player.transform.position);
     }
 
     /// <summary>
@@ -105,9 +107,11 @@ public class PlayerStats : MonoBehaviour
         SpawnDamageParticles();
         DoHitstop();
 
+        var am = FindFirstObjectByType<AudioManager>();
         if (TotalHealth <= 0)
         {
             IsDead = true;
+            am?.PlayOneShot(am.PlayerDeath, ObjectHolder.Player.transform.position);
             //Disable Player visuals
             playerVisuals.SetActive(false);
             // Spawn death particles
@@ -116,6 +120,9 @@ public class PlayerStats : MonoBehaviour
             ObjectHolder objHolder = FindAnyObjectByType<ObjectHolder>();
             SceneManager.LoadScene("GameOverScene", LoadSceneMode.Additive);
             objHolder?.endGame();
+        } else
+        {
+            am?.PlayOneShot(am.PlayerDamage, ObjectHolder.Player.transform.position);
         }
     }
 

@@ -123,6 +123,8 @@ public class PlayerController : MonoBehaviour
     public float HorizontalSpeed => Mathf.Abs(moveInput);
     public bool IsHurtLocked => hurtLockTimer > 0f;
 
+    AudioManager am;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -141,6 +143,11 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead())
             return;
+
+        if(!am)
+        {
+            am = FindFirstObjectByType<AudioManager>();
+        }
 
         if (!IsHurtLocked)
         {
@@ -217,8 +224,10 @@ public class PlayerController : MonoBehaviour
                 jumpBufferCounter = 0f;
 
                 didJumpThisStep = true;
+                
+                am?.PlayOneShot(am.PlayerJump, ObjectHolder.Player.transform.position);
 
-                if (isSecondJump)
+                if (isSecondJump) 
                     TriggerSecondJumpSwoosh();
             }
         }
@@ -331,6 +340,9 @@ public class PlayerController : MonoBehaviour
             throw new System.Exception($"{nameof(PlayerController)}: normalPlayerSpriteRenderer is not assigned (drag your normal visuals SpriteRenderer into the Inspector).");
 
         CacheSlashDefaultsOrThrow();
+
+        am?.PlayOneShot(am.PlayerSlash, ObjectHolder.Player.transform.position);
+
 
         swooshTimer = swooshDuration;
         secondJumpSwooshObject.SetActive(true);
