@@ -21,6 +21,8 @@ public class PlayerAnimator : MonoBehaviour
         // Feed movement speed into Animator
         animator.SetFloat("movement", controller.HorizontalSpeed);
         animator.SetBool("grounded", controller.IsGrounded);
+        animator.SetBool("hurt", controller.IsHurtLocked);
+
 
         // Falling detection
         bool falling = !controller.IsGrounded && controller.VerticalSpeed < fallThreshold;
