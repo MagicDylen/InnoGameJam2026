@@ -3,7 +3,7 @@
 public class PlayerAttack : MonoBehaviour
 {
     private readonly Vector3 _offset = new Vector2(0.5f, 0.5f);
-    private readonly Cooldown _attackCooldown = new Cooldown(1.5f);
+    private readonly Cooldown _attackCooldown = new Cooldown(0.3f);
 
     public Animator animator;
 

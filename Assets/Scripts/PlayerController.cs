@@ -12,6 +12,16 @@ public class PlayerController : MonoBehaviour
     public float coyoteTime = 0.10f;
     public float jumpBuffer = 0.08f;
 
+    [Header("Double Jump")]
+    [Tooltip("Total jumps allowed before touching ground again. 2 = double jump.")]
+    public int maxJumps = 2;
+
+    [Header("Second Jump Swoosh Attack")]
+    [Tooltip("Child GameObject to enable as the circular swoosh collider/attack.")]
+    public GameObject secondJumpSwooshObject;
+    [Tooltip("How long the swoosh collider stays enabled (seconds).")]
+    public float swooshDuration = 0.12f;
+
     [Header("Better Jump")]
     public float fallMultiplier = 4f;
     public float lowJumpMultiplier = 8f;
@@ -27,30 +37,32 @@ public class PlayerController : MonoBehaviour
     [Header("Spring Feet (PD Hover)")]
     [Tooltip("Where rays start from (usually around feet/hips). If null, uses transform.")]
     public Transform springOrigin;
-
     [Tooltip("Horizontal spacing for left/right rays from origin.")]
     public float raySpacing = 0.25f;
-
     [Tooltip("How far down we search for ground.")]
     public float rayLength = 1.2f;
-
     [Tooltip("Desired hover height above ground when grounded. Small value = 'standing' feel.")]
     public float targetHeight = 0.10f;
-
     [Tooltip("Spring strength (K). Higher = stiffer.")]
     public float springStrength = 120f;
-
     [Tooltip("Damping (D). Higher = less bounce.")]
     public float springDamping = 18f;
-
     [Tooltip("Clamp upward spring force to avoid rocket launches from chaotic piles.")]
     public float maxUpwardForce = 250f;
-
     [Tooltip("Extra downward bias to help settle onto ground instead of hovering jittery.")]
     public float stickDownForce = 15f;
-
     [Tooltip("Disable spring while rising after a jump (prevents spring fighting jump).")]
     public bool disableSpringWhileRising = true;
+
+    [Header("Hurt / Knockback Lock")]
+    [Tooltip("Default duration to disable player input after knockback.")]
+    public float defaultHurtLockDuration = 0.5f;
+
+    [Tooltip("If true, disables jumping during hurt lock too.")]
+    public bool disableJumpDuringHurtLock = true;
+
+    [Tooltip("If true, clears buffered jump when hit so you can't immediately jump-cancel knockback.")]
+    public bool clearJumpBufferOnHit = true;
 
     public bool facingRight = true;
 
@@ -62,83 +74,127 @@ public class PlayerController : MonoBehaviour
     float coyoteCounter;
     float jumpBufferCounter;
 
+    int jumpsRemaining;
+    bool wasGrounded;
 
-    // Cached ground info from last FixedUpdate spring cast
+    // Swoosh timer
+    float swooshTimer;
+
+    // Cached ground info
     bool grounded;
-    float groundDistance; // distance from origin to ground hit
+    float groundDistance;
     RaycastHit2D groundHit;
+
+    // Hurt lock state
+    float hurtLockTimer;
 
     public float VerticalSpeed => rb.linearVelocity.y;
     public bool IsGrounded => grounded;
     public float MoveInput => moveInput;
-
     public float HorizontalSpeed => Mathf.Abs(moveInput);
-
-
-
-
+    public bool IsHurtLocked => hurtLockTimer > 0f;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        jumpsRemaining = Mathf.Max(1, maxJumps);
+
+        if (secondJumpSwooshObject != null)
+            secondJumpSwooshObject.SetActive(false);
     }
 
     void Update()
     {
         if (isDead())
-        {
             return;
-        }
-        
-        moveInput = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Jump"))
-            jumpBufferCounter = jumpBuffer;
+        // If locked, ignore player horizontal input (but we still update timers & facing based on velocity)
+        if (!IsHurtLocked)
+        {
+            moveInput = Input.GetAxisRaw("Horizontal");
+
+            if (Input.GetButtonDown("Jump"))
+                jumpBufferCounter = jumpBuffer;
+        }
+        else
+        {
+            moveInput = 0f;
+
+            // Optional: prevent input from queueing during lock
+            if (clearJumpBufferOnHit)
+                jumpBufferCounter = 0f;
+        }
 
         jumpHeld = Input.GetButton("Jump");
 
         jumpBufferCounter -= Time.deltaTime;
 
-        // coyote counter is based on "grounded" computed in FixedUpdate.
-        // That's fine: it will lag by at most one physics step, which is stable.
         if (grounded)
             coyoteCounter = coyoteTime;
         else
             coyoteCounter -= Time.deltaTime;
 
-        UpdateFacing(); // <-- flip visuals here
-
+        UpdateFacing();
     }
 
     void FixedUpdate()
     {
         if (isDead())
-        {
-            return; 
-        }
-        
-        // 1) Read ground via rays (stable on moving rigidbodies)
+            return;
+
+        // decrement hurt lock timer in physics step for determinism
+        if (hurtLockTimer > 0f)
+            hurtLockTimer -= Time.fixedDeltaTime;
+
         UpdateGroundInfo();
 
-        // 2) Apply spring stabilization BEFORE we finalize velocity
-        ApplySpringFeet();
-
-        // 3) Horizontal movement: set X, keep Y untouched
-        Vector2 v = rb.linearVelocity;
-        float targetX = moveInput * moveSpeed;
-        v.x = Mathf.Clamp(targetX, -maxHorizontalSpeed, maxHorizontalSpeed);
-
-        // 4) Jump: set Y once when conditions are met
-        if (jumpBufferCounter > 0f && coyoteCounter > 0f)
+        // Reset jumps when we (re)touch ground
+        if (grounded && !wasGrounded)
         {
-            v.y = jumpVelocity;
-            jumpBufferCounter = 0f;
-            coyoteCounter = 0f;
+            jumpsRemaining = Mathf.Max(1, maxJumps);
+            StopSwoosh();
+        }
+        wasGrounded = grounded;
+
+        if (!IsHurtLocked) ApplySpringFeet();
+
+        Vector2 v = rb.linearVelocity;
+
+        // Horizontal movement ONLY when not hurt-locked
+        if (!IsHurtLocked)
+        {
+            float targetX = moveInput * moveSpeed;
+            v.x = Mathf.Clamp(targetX, -maxHorizontalSpeed, maxHorizontalSpeed);
+        }
+        // else: do NOT touch v.x, let knockback velocity exist
+
+        // Jump handling (optional disable while hurt-locked)
+        bool allowJump = !IsHurtLocked || !disableJumpDuringHurtLock;
+
+        if (allowJump && jumpBufferCounter > 0f)
+        {
+            bool canGroundJump = (coyoteCounter > 0f);
+            bool canAirJump = (!canGroundJump && jumpsRemaining > 0);
+
+            if (canGroundJump || canAirJump)
+            {
+                bool isSecondJump = (!canGroundJump && jumpsRemaining == 1 && maxJumps >= 2);
+
+                v.y = jumpVelocity;
+
+                jumpsRemaining = Mathf.Max(0, jumpsRemaining - 1);
+
+                jumpBufferCounter = 0f;
+                coyoteCounter = 0f;
+
+                if (isSecondJump)
+                    TriggerSecondJumpSwoosh();
+            }
         }
 
         rb.linearVelocity = v;
 
-        // 5) Better jump shaping (affects Y only)
+        // Better jump shaping (Y only)
         v = rb.linearVelocity;
 
         if (v.y < 0f)
@@ -151,20 +207,76 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.linearVelocity = v;
+
+        UpdateSwooshTimer();
+    }
+
+    /// <summary>
+    /// External call (from PlayerStats) to apply knockback and disable input briefly.
+    /// Pass a velocity (world-space) like (-20, 0) or (20, 0).
+    /// </summary>
+    public void ApplyKnockbackVelocity(Vector2 knockbackVelocity, float lockDuration = -1f, bool cancelMomentumOnHit = true)
+    {
+        if (lockDuration < 0f)
+            lockDuration = defaultHurtLockDuration;
+
+        // lock first so the same FixedUpdate doesn't instantly overwrite v.x
+        hurtLockTimer = Mathf.Max(hurtLockTimer, lockDuration);
+
+        if (clearJumpBufferOnHit)
+            jumpBufferCounter = 0f;
+
+        if (cancelMomentumOnHit)
+            rb.linearVelocity = Vector2.zero;
+
+        rb.linearVelocity = knockbackVelocity;
+    }
+
+
+    void TriggerSecondJumpSwoosh()
+    {
+        if (secondJumpSwooshObject == null)
+            throw new System.Exception($"{nameof(PlayerController)}: secondJumpSwooshObject is not assigned.");
+
+        swooshTimer = swooshDuration;
+        secondJumpSwooshObject.SetActive(true);
+    }
+
+    void UpdateSwooshTimer()
+    {
+        if (swooshTimer <= 0f)
+            return;
+
+        swooshTimer -= Time.fixedDeltaTime;
+
+        if (swooshTimer <= 0f)
+            StopSwoosh();
+    }
+
+    void StopSwoosh()
+    {
+        swooshTimer = 0f;
+
+        if (secondJumpSwooshObject != null && secondJumpSwooshObject.activeSelf)
+            secondJumpSwooshObject.SetActive(false);
     }
 
     void UpdateFacing()
     {
-        // Use input to decide facing (most platformers do this).
-        // If you prefer velocity-based facing, replace moveInput with rb.linearVelocity.x.
-        if (moveInput > flipDeadzone) SetFacing(true);
-        else if (moveInput < -flipDeadzone) SetFacing(false);
+        // During hurt lock, face based on velocity to avoid "input says 0 so I never flip"
+        float faceX = IsHurtLocked ? rb.linearVelocity.x : moveInput;
+
+        if (faceX > flipDeadzone) SetFacing(true);
+        else if (faceX < -flipDeadzone) SetFacing(false);
     }
 
     void SetFacing(bool right)
     {
         if (facingRight == right) return;
         facingRight = right;
+
+        if (!playerVisuals)
+            throw new System.Exception($"{nameof(PlayerController)}: playerVisuals is not assigned.");
 
         Vector3 s = playerVisuals.localScale;
         s.x = Mathf.Abs(s.x) * (facingRight ? 1f : -1f);
@@ -176,7 +288,6 @@ public class PlayerController : MonoBehaviour
         Transform originT = springOrigin ? springOrigin : transform;
         Vector2 origin = originT.position;
 
-        // Three ray origins: left, center, right
         Vector2 oL = origin + Vector2.left * raySpacing;
         Vector2 oC = origin;
         Vector2 oR = origin + Vector2.right * raySpacing;
@@ -185,7 +296,6 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hC = Physics2D.Raycast(oC, Vector2.down, rayLength, groundMask);
         RaycastHit2D hR = Physics2D.Raycast(oR, Vector2.down, rayLength, groundMask);
 
-        // Pick the closest valid hit (smallest distance)
         groundHit = default;
         float bestDist = float.PositiveInfinity;
 
@@ -201,26 +311,20 @@ public class PlayerController : MonoBehaviour
     {
         if (!grounded) return;
 
-        // Optional: don't let spring fight you while you are moving upward from a jump
         if (disableSpringWhileRising && rb.linearVelocity.y > 0.1f)
             return;
 
-        // Only engage when we're within reasonable range of target height
-        // (If we're far above, don't "yoink" downward weirdly.)
         float engageRange = targetHeight + 0.35f;
         if (groundDistance > engageRange) return;
 
-        // PD controller trying to keep origin at targetHeight above ground
-        float error = (targetHeight - groundDistance); // positive => below desired height (need push up)
+        float error = (targetHeight - groundDistance);
         float velY = rb.linearVelocity.y;
 
         float forceY = (error * springStrength) - (velY * springDamping);
 
-        // Extra "stick" so we settle instead of hovering
-        if (error < 0f) // we're above target height
+        if (error < 0f)
             forceY -= stickDownForce;
 
-        // Clamp upward force to prevent launch spikes
         forceY = Mathf.Min(forceY, maxUpwardForce);
 
         rb.AddForce(Vector2.up * forceY, ForceMode2D.Force);
@@ -255,7 +359,6 @@ public class PlayerController : MonoBehaviour
         }
         catch
         {
-            // PlayerStats component doesn't exist, assume not dead
             return false;
         }
     }

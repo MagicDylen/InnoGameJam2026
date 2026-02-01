@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 7340aa67dcc63ad4b92f4193c7fa6994
+guid: 24630b82cc02d2e4cb6e7ca6ba34b568
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1013798035419429110
-    second: knight_up (2)_0
-  - first:
-      213: 6820922034786560726
-    second: knight_up (2)_1
+      213: 9218227799881568041
+    second: swooooooosh_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -129,45 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: knight_up (2)_0
+      name: swooooooosh_0
       rect:
         serializedVersion: 2
-        x: 669
-        y: 350
-        width: 1242
-        height: 1115
-      alignment: 9
-      pivot: {x: 0.71052843, y: 0.49495697}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a0706d0ee044ee1f0800000000000000
-      internalID: -1013798035419429110
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: knight_up (2)_1
-      rect:
-        serializedVersion: 2
-        x: 1253
-        y: 279
-        width: 7
-        height: 7
+        x: 589
+        y: 226
+        width: 1780
+        height: 1898
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6da661ca378c8ae50800000000000000
-      internalID: 6820922034786560726
+      spriteID: 92f429ef759bdef70800000000000000
+      internalID: 9218227799881568041
       vertices: []
       indices: 
       edges: []
@@ -176,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f20b4f1e326f8ed49b6f0717b479c8af
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -186,8 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      knight_up (2)_0: -1013798035419429110
-      knight_up (2)_1: 6820922034786560726
+      swooooooosh_0: 9218227799881568041
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
