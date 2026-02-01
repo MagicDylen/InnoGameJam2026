@@ -22,17 +22,13 @@ public class PlayerController : MonoBehaviour
     [Tooltip("How long the swoosh collider stays enabled (seconds).")]
     public float swooshDuration = 0.12f;
 
-    [Header("Better Jump")]
-    public float fallMultiplier = 4f;
-    public float lowJumpMultiplier = 8f;
-
-    [Header("Ground Mask")]
-    public LayerMask groundMask;
-
     [Header("Visuals")]
     public Transform playerVisuals;
     [Tooltip("Input threshold to prevent flip jitter when input is ~0.")]
     public float flipDeadzone = 0.01f;
+
+    [Tooltip("SpriteRenderer for the 'normal player' visuals to hide during Slash/Swoosh.")]
+    public SpriteRenderer normalPlayerSpriteRenderer;
 
     [Header("Spring Feet (PD Hover)")]
     [Tooltip("Where rays start from (usually around feet/hips). If null, uses transform.")]
@@ -101,6 +97,9 @@ public class PlayerController : MonoBehaviour
 
         if (secondJumpSwooshObject != null)
             secondJumpSwooshObject.SetActive(false);
+
+        // Ensure normal visuals are on at start (if assigned)
+        SetNormalVisualsActive(true);
     }
 
     void Update()
@@ -211,10 +210,6 @@ public class PlayerController : MonoBehaviour
         UpdateSwooshTimer();
     }
 
-    /// <summary>
-    /// External call (from PlayerStats) to apply knockback and disable input briefly.
-    /// Pass a velocity (world-space) like (-20, 0) or (20, 0).
-    /// </summary>
     public void ApplyKnockbackVelocity(Vector2 knockbackVelocity, float lockDuration = -1f, bool cancelMomentumOnHit = true)
     {
         if (lockDuration < 0f)
@@ -232,14 +227,20 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = knockbackVelocity;
     }
 
-
     void TriggerSecondJumpSwoosh()
     {
         if (secondJumpSwooshObject == null)
             throw new System.Exception($"{nameof(PlayerController)}: secondJumpSwooshObject is not assigned.");
 
+        // Optional loud error if you intended to use this and forgot to assign it
+        if (normalPlayerSpriteRenderer == null)
+            throw new System.Exception($"{nameof(PlayerController)}: normalPlayerSpriteRenderer is not assigned (drag your normal visuals SpriteRenderer into the Inspector).");
+
         swooshTimer = swooshDuration;
         secondJumpSwooshObject.SetActive(true);
+
+        // Hide normal visuals while Slash/Swoosh is active
+        SetNormalVisualsActive(false);
     }
 
     void UpdateSwooshTimer()
@@ -259,6 +260,18 @@ public class PlayerController : MonoBehaviour
 
         if (secondJumpSwooshObject != null && secondJumpSwooshObject.activeSelf)
             secondJumpSwooshObject.SetActive(false);
+
+        // Re-show normal visuals when Slash/Swoosh ends
+        SetNormalVisualsActive(true);
+    }
+
+    void SetNormalVisualsActive(bool active)
+    {
+        if (normalPlayerSpriteRenderer == null)
+            return; // keep this quiet outside of the swoosh call; swoosh will throw if missing
+
+        if (normalPlayerSpriteRenderer.enabled != active)
+            normalPlayerSpriteRenderer.enabled = active;
     }
 
     void UpdateFacing()
@@ -362,4 +375,11 @@ public class PlayerController : MonoBehaviour
             return false;
         }
     }
+
+    [Header("Better Jump")]
+    public float fallMultiplier = 4f;
+    public float lowJumpMultiplier = 8f;
+
+    [Header("Ground Mask")]
+    public LayerMask groundMask;
 }

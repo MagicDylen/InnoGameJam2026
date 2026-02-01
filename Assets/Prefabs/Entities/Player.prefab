@@ -366,13 +366,9 @@ MonoBehaviour:
   maxJumps: 2
   secondJumpSwooshObject: {fileID: 8968148460700175243}
   swooshDuration: 0.2
-  fallMultiplier: 4
-  lowJumpMultiplier: 2
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 320
   playerVisuals: {fileID: 2133316490961544827}
   flipDeadzone: 0.01
+  normalPlayerSpriteRenderer: {fileID: 1541553204042242021}
   springOrigin: {fileID: 1052555374638149888}
   raySpacing: 0.64
   rayLength: 0.8
@@ -386,6 +382,11 @@ MonoBehaviour:
   disableJumpDuringHurtLock: 1
   clearJumpBufferOnHit: 1
   facingRight: 1
+  fallMultiplier: 4
+  lowJumpMultiplier: 2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 320
 --- !u!114 &7174057287864082628
 MonoBehaviour:
   m_ObjectHideFlags: 0
