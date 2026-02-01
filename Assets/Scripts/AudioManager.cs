@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour
         if (emitter != null)
         {
             // max is 8 for the parameter, progress is between 0 and 1, 1 being done
-            int intensity = math.min((int)(spawner.GetProgress01() * 9), 8);
+            int intensity = math.min((int)(spawner.GetProgress01() * 11), 8);
             if(intensity != currentIntensity)
             {
                 currentIntensity = intensity;
