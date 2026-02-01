@@ -129,6 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   controller: {fileID: 2031278320427737147}
   fallThreshold: -1
+  groundedCoyoteTime: 0.15
 --- !u!1 &8498634708821874837
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +360,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   fallingVelocity: 3
+  jumpingVelocity: 3
+  extraGroundCast: 0.25
+  groundSnapSkin: 0.02
+  snapToGroundOnFastFall: 1
   enableSpinning: 1
   spinUpBoost: 10
   spinUpBoostAdd: 6
@@ -367,6 +372,7 @@ MonoBehaviour:
   maxHorizontalSpeed: 7
   jumpVelocity: 7
   jumpBuffer: 0.08
+  coyoteTime: 0.15
   maxJumps: 2
   secondJumpSwooshObject: {fileID: 8968148460700175243}
   swooshDuration: 0.2
@@ -382,7 +388,7 @@ MonoBehaviour:
   springOrigin: {fileID: 1052555374638149888}
   raySpacing: 0.37
   rayLength: 0.38
-  targetHeight: 0.7
+  targetHeight: 0.45
   springStrength: 150
   springDamping: 18
   maxUpwardForce: 250

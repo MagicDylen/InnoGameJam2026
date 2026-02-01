@@ -7,6 +7,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallingVelocity = 3f;
     [SerializeField] private float jumpingVelocity = 3f;
 
+    [Header("Ground Snap (anti-tunneling)")]
+    [SerializeField] private float extraGroundCast = 0.25f;     // extra safety distance
+    [SerializeField] private float groundSnapSkin = 0.02f;       // how close before we snap
+    [SerializeField] private bool snapToGroundOnFastFall = true; // toggle
+
+
     [Header("Spinning State")]
     [Tooltip("If true, after hitting an enemy you enter Spinning: slash stays active until grounded.")]
     public bool enableSpinning = true;
@@ -183,6 +189,8 @@ public class PlayerController : MonoBehaviour
             hurtLockTimer -= Time.fixedDeltaTime;
 
         UpdateGroundInfo();
+        SnapToGroundIfNeeded();
+
 
         // Update coyote time: if grounded, reset counter; if airborne, count down
         if (grounded)
@@ -494,13 +502,20 @@ public class PlayerController : MonoBehaviour
         Transform originT = springOrigin ? springOrigin : transform;
         Vector2 origin = originT.position;
 
+        // Predictive cast length to prevent tunneling:
+        // How far could we move down this physics step?
+        float downSpeed = Mathf.Max(0f, -rb.linearVelocity.y);
+        float predictedFall = downSpeed * Time.fixedDeltaTime;
+
+        float castLength = Mathf.Max(rayLength, targetHeight + predictedFall + extraGroundCast);
+
         Vector2 oL = origin + Vector2.left * raySpacing;
         Vector2 oC = origin;
         Vector2 oR = origin + Vector2.right * raySpacing;
 
-        RaycastHit2D hL = Physics2D.Raycast(oL, Vector2.down, rayLength, groundMask);
-        RaycastHit2D hC = Physics2D.Raycast(oC, Vector2.down, rayLength, groundMask);
-        RaycastHit2D hR = Physics2D.Raycast(oR, Vector2.down, rayLength, groundMask);
+        RaycastHit2D hL = Physics2D.Raycast(oL, Vector2.down, castLength, groundMask);
+        RaycastHit2D hC = Physics2D.Raycast(oC, Vector2.down, castLength, groundMask);
+        RaycastHit2D hR = Physics2D.Raycast(oR, Vector2.down, castLength, groundMask);
 
         groundHit = default;
         float bestDist = float.PositiveInfinity;
@@ -509,9 +524,36 @@ public class PlayerController : MonoBehaviour
         if (hC.collider && hC.distance < bestDist) { bestDist = hC.distance; groundHit = hC; }
         if (hR.collider && hR.distance < bestDist) { bestDist = hR.distance; groundHit = hR; }
 
-        grounded = groundHit.collider != null && bestDist <= rayLength;
+        grounded = groundHit.collider != null && bestDist <= castLength;
         groundDistance = grounded ? bestDist : float.PositiveInfinity;
     }
+
+    void SnapToGroundIfNeeded()
+    {
+        if (!snapToGroundOnFastFall) return;
+        if (!groundHit.collider) return;
+
+        // Only snap while moving downward
+        if (rb.linearVelocity.y >= 0f) return;
+
+        // If we're close enough to desired hover height, snap up and zero Y
+        float snapThreshold = targetHeight + groundSnapSkin;
+        if (groundDistance <= snapThreshold)
+        {
+            // Move the body up so the spring origin sits at targetHeight above ground
+            float correction = (targetHeight - groundDistance);
+            rb.position = rb.position + Vector2.up * correction;
+
+            Vector2 v = rb.linearVelocity;
+            v.y = 0f;
+            rb.linearVelocity = v;
+
+            grounded = true;
+            groundDistance = targetHeight;
+        }
+    }
+
+
 
     void ApplySpringFeet()
     {
