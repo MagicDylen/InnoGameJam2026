@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -141,21 +141,17 @@ public class PlayerController : MonoBehaviour
         if (isDead())
             return;
 
-        // decrement hurt lock timer in physics step for determinism
         if (hurtLockTimer > 0f)
             hurtLockTimer -= Time.fixedDeltaTime;
 
         UpdateGroundInfo();
 
-        // Reset jumps when we (re)touch ground
         if (grounded && !wasGrounded)
         {
             jumpsRemaining = Mathf.Max(1, maxJumps);
             StopSwoosh();
         }
         wasGrounded = grounded;
-
-        if (!IsHurtLocked) ApplySpringFeet();
 
         Vector2 v = rb.linearVelocity;
 
@@ -165,10 +161,11 @@ public class PlayerController : MonoBehaviour
             float targetX = moveInput * moveSpeed;
             v.x = Mathf.Clamp(targetX, -maxHorizontalSpeed, maxHorizontalSpeed);
         }
-        // else: do NOT touch v.x, let knockback velocity exist
 
         // Jump handling (optional disable while hurt-locked)
         bool allowJump = !IsHurtLocked || !disableJumpDuringHurtLock;
+
+        bool didJumpThisStep = false;
 
         if (allowJump && jumpBufferCounter > 0f)
         {
@@ -179,6 +176,9 @@ public class PlayerController : MonoBehaviour
             {
                 bool isSecondJump = (!canGroundJump && jumpsRemaining == 1 && maxJumps >= 2);
 
+                // Optional: normalize takeoff so downward spring motion can't reduce jump
+                if (v.y < 0f) v.y = 0f;
+
                 v.y = jumpVelocity;
 
                 jumpsRemaining = Mathf.Max(0, jumpsRemaining - 1);
@@ -186,12 +186,18 @@ public class PlayerController : MonoBehaviour
                 jumpBufferCounter = 0f;
                 coyoteCounter = 0f;
 
+                didJumpThisStep = true;
+
                 if (isSecondJump)
                     TriggerSecondJumpSwoosh();
             }
         }
 
         rb.linearVelocity = v;
+
+        // ✅ Apply spring AFTER jump, and skip it on the jump frame
+        if (!IsHurtLocked && !didJumpThisStep)
+            ApplySpringFeet();
 
         // Better jump shaping (Y only)
         v = rb.linearVelocity;
@@ -209,6 +215,7 @@ public class PlayerController : MonoBehaviour
 
         UpdateSwooshTimer();
     }
+
 
     public void ApplyKnockbackVelocity(Vector2 knockbackVelocity, float lockDuration = -1f, bool cancelMomentumOnHit = true)
     {
