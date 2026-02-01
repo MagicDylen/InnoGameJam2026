@@ -9,6 +9,9 @@ public class PlatformEnemy : MonoBehaviour
     [SerializeField] private float damageAmount = 20f;
     [SerializeField] private Collider2D damageTrigger; // assign the child trigger collider
 
+    [Header("Graphics")]
+    [SerializeField] private GameObject vfxPrefab;
+    
     [Header("Visual Feedback")]
     [SerializeField] private SpriteRenderer spriteToTint; // assign in inspector
     [SerializeField] private Color deadTint = new Color(0.6f, 0.9f, 0.6f, 1f);
@@ -36,7 +39,6 @@ public class PlatformEnemy : MonoBehaviour
 
     private void Update()
     {
-        if (isDead) return;
         transform.position += Vector3.down * (fallSpeed * Time.deltaTime);
     }
 
@@ -54,6 +56,9 @@ public class PlatformEnemy : MonoBehaviour
         // Particles
         if (deathParticlesPrefab != null)
             Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
+
+        if (vfxPrefab != null)
+            vfxPrefab.gameObject.SetActive(false);
 
         // Hit-stop
         HitStop.Do(hitStopDuration, hitStopTimeScale);
