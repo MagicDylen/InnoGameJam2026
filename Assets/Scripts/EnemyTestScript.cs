@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyTestScript : MonoBehaviour
 {
-    private GameObject _enemy;
+    public GameObject enemy;
     public float distance = 1f;
     public float speed = 2f;
 
@@ -10,12 +10,12 @@ public class EnemyTestScript : MonoBehaviour
 
     void Start()
     {
-        _enemy = GameObject.Find("Enemy");
-        _startPos = _enemy.transform.position;
+        enemy = GameObject.Find("Enemy");
+        _startPos = enemy.transform.position;
     }
 
     void Update()
     {
-        _enemy.transform.position = _startPos + Vector3.right * Mathf.Sin(Time.time * speed) * distance;
+        enemy.transform.position = _startPos + Vector3.right * Mathf.Sin(Time.time * speed) * distance;
     }
 }
