@@ -403,6 +403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181177e8ae2a0874384d3dc475e28d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  playerVisuals: {fileID: 6250671499600275971}
+  deathParticlesPrefab: {fileID: 3745456296972243897, guid: b6d67264ec64bfe4b8fff976677cbbec, type: 3}
   PlayerDamage: 10
   SpeedMultiplier: 1
   DamageMultiplier: 1

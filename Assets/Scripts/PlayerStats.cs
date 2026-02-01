@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerStats : MonoBehaviour
 {
+    public GameObject playerVisuals;
+    public GameObject deathParticlesPrefab;
+
     [Header("Combat Stats")]
     [SerializeField] float PlayerDamage = 10f;
     [SerializeField] float SpeedMultiplier = 1;
@@ -105,6 +108,11 @@ public class PlayerStats : MonoBehaviour
         if (TotalHealth <= 0)
         {
             IsDead = true;
+            //Disable Player visuals
+            playerVisuals.SetActive(false);
+            // Spawn death particles
+            Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
+
             ObjectHolder objHolder = FindAnyObjectByType<ObjectHolder>();
             SceneManager.LoadScene("GameOverScene", LoadSceneMode.Additive);
             objHolder?.endGame();
