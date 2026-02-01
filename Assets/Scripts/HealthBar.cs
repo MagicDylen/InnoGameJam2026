@@ -19,6 +19,6 @@ public class HealthBar : MonoBehaviour
 
         transform.localScale = new Vector3(healthPercent, 1, 1);
         image.uvRect = new Rect(0, 0, healthPercent, 1);
-        transform.localPosition = new Vector3(-((1 - healthPercent) * 0.5f * 170) - 18, transform.localPosition.y, transform.localPosition.z);
+        transform.localPosition = new Vector3(-((1 - healthPercent) * 0.5f * 168) + 18.5f, transform.localPosition.y, transform.localPosition.z);
     }
 }
