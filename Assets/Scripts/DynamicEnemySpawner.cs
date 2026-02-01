@@ -203,7 +203,8 @@ public sealed class DynamicEnemySpawner : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError($"[EnemySpawner] Configuration error on '{name}': {ex.Message}", this);
+            // Debug.LogError($"[EnemySpawner] Configuration error on '{name}': {ex.Message}", this);
+            Debug.Log($"[EnemySpawner] Configuration error on '{name}': {ex.Message}", this);
         }
     }
 #endif
