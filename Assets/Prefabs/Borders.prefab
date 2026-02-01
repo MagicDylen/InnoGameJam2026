@@ -46,6 +46,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1.41
       objectReference: {fileID: 0}
+    - target: {fileID: 3002514269033368569, guid: cf283d258b9461e4389952174bb0e499, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 8b62def69afb3d34194f59ed492e5708, type: 2}
     - target: {fileID: 3344169742415906716, guid: cf283d258b9461e4389952174bb0e499, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -210,6 +214,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1.41
       objectReference: {fileID: 0}
+    - target: {fileID: 3002514269033368569, guid: cf283d258b9461e4389952174bb0e499, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 8b62def69afb3d34194f59ed492e5708, type: 2}
     - target: {fileID: 3344169742415906716, guid: cf283d258b9461e4389952174bb0e499, type: 3}
       propertyPath: m_Color.b
       value: 0
