@@ -153,7 +153,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (isDead())
+        {
+            CancelSpinAndSlash();
             return;
+        }
 
         if(!am)
         {
@@ -183,7 +186,10 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         if (isDead())
+        {
+            CancelSpinAndSlash();
             return;
+        }
 
         if (hurtLockTimer > 0f)
             hurtLockTimer -= Time.fixedDeltaTime;
@@ -342,6 +348,9 @@ public class PlayerController : MonoBehaviour
 
     public void ApplyKnockbackVelocity(Vector2 knockbackVelocity, float lockDuration = -1f, bool cancelMomentumOnHit = true)
     {
+        // Taking damage should instantly take you out of Spinning (and any swoosh).
+        CancelSpinAndSlash();
+
         if (lockDuration < 0f)
             lockDuration = defaultHurtLockDuration;
 
@@ -355,6 +364,7 @@ public class PlayerController : MonoBehaviour
 
         rb.linearVelocity = knockbackVelocity;
     }
+
 
     void TriggerSecondJumpSwoosh()
     {
@@ -598,6 +608,14 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawWireSphere(groundHit.point, 0.05f);
         }
     }
+
+    void CancelSpinAndSlash()
+    {
+        // Immediately exit spinning and disable any slash/swoosh visuals.
+        isSpinning = false;
+        StopSwoosh();
+    }
+
 
     bool isDead()
     {
