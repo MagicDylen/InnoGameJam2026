@@ -39,7 +39,10 @@ public class PlatformEnemy : MonoBehaviour
 
     private void Update()
     {
-        transform.position += Vector3.down * (fallSpeed * Time.deltaTime);
+        if (!isDead)
+        {
+            transform.position += Vector3.down * (fallSpeed * Time.deltaTime);
+        }
     }
 
     public void Kill()
