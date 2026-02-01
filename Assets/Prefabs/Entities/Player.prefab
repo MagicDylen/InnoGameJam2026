@@ -358,6 +358,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24dbe074b40b4b54fbcec43d57e3ff90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  enableSpinning: 1
+  spinUpBoost: 10
+  spinUpBoostAdd: 6
+  spinMaxUpVelocity: 22
   moveSpeed: 30
   maxHorizontalSpeed: 7
   jumpVelocity: 7
@@ -366,16 +370,12 @@ MonoBehaviour:
   maxJumps: 2
   secondJumpSwooshObject: {fileID: 8968148460700175243}
   swooshDuration: 0.2
-  fallMultiplier: 4
-  lowJumpMultiplier: 2
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 320
   playerVisuals: {fileID: 2133316490961544827}
   flipDeadzone: 0.01
+  normalPlayerSpriteRenderer: {fileID: 1541553204042242021}
   springOrigin: {fileID: 1052555374638149888}
-  raySpacing: 0.64
-  rayLength: 0.8
+  raySpacing: 0.37
+  rayLength: 0.38
   targetHeight: 0.7
   springStrength: 150
   springDamping: 18
@@ -386,6 +386,11 @@ MonoBehaviour:
   disableJumpDuringHurtLock: 1
   clearJumpBufferOnHit: 1
   facingRight: 1
+  fallMultiplier: 4
+  lowJumpMultiplier: 2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 320
 --- !u!114 &7174057287864082628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,7 +413,7 @@ MonoBehaviour:
   DamagePickUpAdd: 0.2
   SpeeedPickUpAdd: 0.1
   damageCooldown: 1
-  knockbackStrength: 15
+  knockbackStrength: 7
   hurtLockDuration: 0.5
   cancelMomentumOnHit: 1
   damageParticlesPrefab: {fileID: 3745456296972243897, guid: 1d9dd39fef9a8a84c84b450d7a0729cd, type: 3}
@@ -470,8 +475,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.8829887, w: 0.46939427}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.28667578, y: 0.28667578, z: 0.28667578}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 699726035197346609}
   m_Father: {fileID: 8472540620510709532}

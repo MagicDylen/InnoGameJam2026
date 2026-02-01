@@ -1,8 +1,27 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Spinning State")]
+    [Tooltip("If true, after hitting an enemy you enter Spinning: slash stays active until grounded.")]
+    public bool enableSpinning = true;
+
+    [Tooltip("Upward velocity applied when you hit an enemy and enter/refresh Spinning.")]
+    public float spinUpBoost = 10f;
+
+    [Tooltip("Extra upward velocity added per hit while already spinning (optional; set 0 to just set to spinUpBoost).")]
+    public float spinUpBoostAdd = 6f;
+
+    [Tooltip("Clamp the maximum upward velocity while chaining hits.")]
+    public float spinMaxUpVelocity = 22f;
+
+    // State
+    bool isSpinning;
+    public bool IsSpinning => isSpinning;
+
+
+
     [Header("Movement")]
     public float moveSpeed = 21.3f;
     public float maxHorizontalSpeed = 21.3f; // clamp ONLY X
@@ -22,17 +41,13 @@ public class PlayerController : MonoBehaviour
     [Tooltip("How long the swoosh collider stays enabled (seconds).")]
     public float swooshDuration = 0.12f;
 
-    [Header("Better Jump")]
-    public float fallMultiplier = 4f;
-    public float lowJumpMultiplier = 8f;
-
-    [Header("Ground Mask")]
-    public LayerMask groundMask;
-
     [Header("Visuals")]
     public Transform playerVisuals;
     [Tooltip("Input threshold to prevent flip jitter when input is ~0.")]
     public float flipDeadzone = 0.01f;
+
+    [Tooltip("SpriteRenderer for the 'normal player' visuals to hide during Slash/Swoosh.")]
+    public SpriteRenderer normalPlayerSpriteRenderer;
 
     [Header("Spring Feet (PD Hover)")]
     [Tooltip("Where rays start from (usually around feet/hips). If null, uses transform.")]
@@ -101,6 +116,9 @@ public class PlayerController : MonoBehaviour
 
         if (secondJumpSwooshObject != null)
             secondJumpSwooshObject.SetActive(false);
+
+        // Ensure normal visuals are on at start (if assigned)
+        SetNormalVisualsActive(true);
     }
 
     void Update()
@@ -142,21 +160,23 @@ public class PlayerController : MonoBehaviour
         if (isDead())
             return;
 
-        // decrement hurt lock timer in physics step for determinism
         if (hurtLockTimer > 0f)
             hurtLockTimer -= Time.fixedDeltaTime;
 
         UpdateGroundInfo();
 
-        // Reset jumps when we (re)touch ground
         if (grounded && !wasGrounded)
         {
             jumpsRemaining = Mathf.Max(1, maxJumps);
-            StopSwoosh();
-        }
-        wasGrounded = grounded;
 
-        if (!IsHurtLocked) ApplySpringFeet();
+            // Landing ends Spinning and any slash visuals.
+            if (isSpinning)
+                EndSpin();
+            else
+                StopSwoosh();
+        }
+
+        wasGrounded = grounded;
 
         Vector2 v = rb.linearVelocity;
 
@@ -166,10 +186,11 @@ public class PlayerController : MonoBehaviour
             float targetX = moveInput * moveSpeed;
             v.x = Mathf.Clamp(targetX, -maxHorizontalSpeed, maxHorizontalSpeed);
         }
-        // else: do NOT touch v.x, let knockback velocity exist
 
         // Jump handling (optional disable while hurt-locked)
         bool allowJump = !IsHurtLocked || !disableJumpDuringHurtLock;
+
+        bool didJumpThisStep = false;
 
         if (allowJump && jumpBufferCounter > 0f)
         {
@@ -180,6 +201,9 @@ public class PlayerController : MonoBehaviour
             {
                 bool isSecondJump = (!canGroundJump && jumpsRemaining == 1 && maxJumps >= 2);
 
+                // Optional: normalize takeoff so downward spring motion can't reduce jump
+                if (v.y < 0f) v.y = 0f;
+
                 v.y = jumpVelocity;
 
                 jumpsRemaining = Mathf.Max(0, jumpsRemaining - 1);
@@ -187,12 +211,18 @@ public class PlayerController : MonoBehaviour
                 jumpBufferCounter = 0f;
                 coyoteCounter = 0f;
 
+                didJumpThisStep = true;
+
                 if (isSecondJump)
                     TriggerSecondJumpSwoosh();
             }
         }
 
         rb.linearVelocity = v;
+
+        // ✅ Apply spring AFTER jump, and skip it on the jump frame
+        if (!IsHurtLocked && !didJumpThisStep)
+            ApplySpringFeet();
 
         // Better jump shaping (Y only)
         v = rb.linearVelocity;
@@ -212,9 +242,77 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// External call (from PlayerStats) to apply knockback and disable input briefly.
-    /// Pass a velocity (world-space) like (-20, 0) or (20, 0).
+    /// Call this when the player's slash/swoosh successfully hits an enemy.
+    /// Starts Spinning if not already spinning, keeps slash active until grounded,
+    /// and gives an upward momentum boost. Re-hits refresh the boost.
     /// </summary>
+    public void NotifySlashHitEnemy()
+    {
+        if (!enableSpinning)
+            return;
+
+        // If you're hurt-locked, you can decide whether spin should be allowed.
+        // Current behavior: allow it (feels juicy), but you can block it if desired.
+        // if (IsHurtLocked) return;
+
+        StartOrRefreshSpin();
+        ApplySpinBoost();
+    }
+
+    void StartOrRefreshSpin()
+    {
+        if (secondJumpSwooshObject == null)
+            throw new System.Exception($"{nameof(PlayerController)}: secondJumpSwooshObject is not assigned.");
+
+        if (normalPlayerSpriteRenderer == null)
+            throw new System.Exception($"{nameof(PlayerController)}: normalPlayerSpriteRenderer is not assigned (drag your normal visuals SpriteRenderer into the Inspector).");
+
+        isSpinning = true;
+
+        // Force slash/swoosh to remain on visually & mechanically.
+        if (!secondJumpSwooshObject.activeSelf)
+            secondJumpSwooshObject.SetActive(true);
+
+        SetNormalVisualsActive(false);
+
+        // Ensure the normal swoosh timer can't turn it off while spinning.
+        swooshTimer = 0f;
+    }
+
+    void ApplySpinBoost()
+    {
+        Vector2 v = rb.linearVelocity;
+
+        // Optional: if falling, cancel downwards first so the boost feels consistent.
+        if (v.y < 0f) v.y = 0f;
+
+        // Two styles:
+        // 1) "Set" style: v.y = max(v.y, spinUpBoost)
+        // 2) "Add" style: v.y += spinUpBoostAdd (with clamp)
+        //
+        // We do both: ensure at least spinUpBoost, then add extra per hit.
+        v.y = Mathf.Max(v.y, spinUpBoost);
+
+        if (spinUpBoostAdd > 0f)
+            v.y = Mathf.Min(v.y + spinUpBoostAdd, spinMaxUpVelocity);
+
+        rb.linearVelocity = v;
+    }
+
+    void EndSpin()
+    {
+        if (!isSpinning)
+            return;
+
+        isSpinning = false;
+
+        // Turn off swoosh and restore normal visuals.
+        StopSwoosh();
+    }
+
+
+
+
     public void ApplyKnockbackVelocity(Vector2 knockbackVelocity, float lockDuration = -1f, bool cancelMomentumOnHit = true)
     {
         if (lockDuration < 0f)
@@ -232,18 +330,27 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = knockbackVelocity;
     }
 
-
     void TriggerSecondJumpSwoosh()
     {
         if (secondJumpSwooshObject == null)
             throw new System.Exception($"{nameof(PlayerController)}: secondJumpSwooshObject is not assigned.");
 
+        // Optional loud error if you intended to use this and forgot to assign it
+        if (normalPlayerSpriteRenderer == null)
+            throw new System.Exception($"{nameof(PlayerController)}: normalPlayerSpriteRenderer is not assigned (drag your normal visuals SpriteRenderer into the Inspector).");
+
         swooshTimer = swooshDuration;
         secondJumpSwooshObject.SetActive(true);
+
+        // Hide normal visuals while Slash/Swoosh is active
+        SetNormalVisualsActive(false);
     }
 
     void UpdateSwooshTimer()
     {
+        if (isSpinning)
+            return; // spinning owns the swoosh lifetime
+
         if (swooshTimer <= 0f)
             return;
 
@@ -253,12 +360,25 @@ public class PlayerController : MonoBehaviour
             StopSwoosh();
     }
 
+
     void StopSwoosh()
     {
         swooshTimer = 0f;
 
         if (secondJumpSwooshObject != null && secondJumpSwooshObject.activeSelf)
             secondJumpSwooshObject.SetActive(false);
+
+        // Re-show normal visuals when Slash/Swoosh ends
+        SetNormalVisualsActive(true);
+    }
+
+    void SetNormalVisualsActive(bool active)
+    {
+        if (normalPlayerSpriteRenderer == null)
+            return; // keep this quiet outside of the swoosh call; swoosh will throw if missing
+
+        if (normalPlayerSpriteRenderer.enabled != active)
+            normalPlayerSpriteRenderer.enabled = active;
     }
 
     void UpdateFacing()
@@ -362,4 +482,11 @@ public class PlayerController : MonoBehaviour
             return false;
         }
     }
+
+    [Header("Better Jump")]
+    public float fallMultiplier = 4f;
+    public float lowJumpMultiplier = 8f;
+
+    [Header("Ground Mask")]
+    public LayerMask groundMask;
 }
